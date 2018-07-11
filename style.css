@@ -1,0 +1,73 @@
+/*Variables*/
+@font-face {
+    font-family: SharpSansBold;
+    src: url(assets/fonts/Sharp-Sans-No1-Bold.otf);
+}
+
+:root{
+  --green: #15AD4B;
+}
+
+article {
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+body {
+  font-family: SharpSansBold,   sans-serif;
+  color: var(--green);
+}
+
+figure {
+  text-align: center;
+  margin-top: 5rem;
+}
+
+figure img {
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3rem;
+  line-height: 3.8rem;
+}
+
+footer button {
+  margin: 0 auto;
+  display: block;
+}
+
+footer {
+  background: var(--green);
+  color: white;
+  padding-left: 30%;
+  padding-right: 30%;
+}
+
+nav {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+nav img {
+  height: 2rem;
+}
+
+nav button {
+  float: right;
+}
+
+button {
+  padding: 0.75rem 1rem;
+  border: 0;
+  background-color: var(--green);
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-family: SharpSansBold, sans-serif;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+}
