@@ -16,6 +16,7 @@ article {
 body {
   font-family: SharpSansBold,   sans-serif;
   color: var(--green);
+  margin: 0;
 }
 
 figure {
@@ -36,26 +37,44 @@ h1 {
 footer button {
   margin: 0 auto;
   display: block;
+  background-color: white;
+  color: var(--green);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 footer {
-  background: var(--green);
+  background: linear-gradient(white 25%, var(--green) 25%);
   color: white;
   padding-left: 30%;
   padding-right: 30%;
+  padding-bottom: 8rem;
+  padding-top: -4rem;
 }
 
 nav {
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background-color: rgba(255,255,255,.97);
 }
 
 nav img {
-  height: 2rem;
+  height: 2.5rem;
+  padding-top: .2rem;
+  float: left;
 }
 
 nav button {
   float: right;
+  margin-right: 40px;
+  letter-spacing: 1px;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 button {
