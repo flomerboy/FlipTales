@@ -38,7 +38,7 @@ h1 {
   line-height: 3.8rem;
 }
 
-footer button {
+footer form.button input {
   margin: 0 auto;
   display: block;
   background-color: white;
@@ -70,14 +70,14 @@ nav img {
   float: left;
 }
 
-nav button {
+nav form.button input {
   float: right;
   margin-right: 40px;
   display: table-cell;
   vertical-align: middle;
 }
 
-button {
+form.button input {
   padding: 0.75rem 1rem;
   border: 0;
   background-color: var(--green);
