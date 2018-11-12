@@ -140,6 +140,10 @@ form.button-invert input {
   margin-top: 3em;
 }
 
+.u-center {
+  text-align: center;
+}
+
 .story-card {
   width: 12rem;
   border-radius: 1rem;
