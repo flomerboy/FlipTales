@@ -145,13 +145,14 @@ form.button-invert input {
 }
 
 .story-card {
-  width: 12rem;
+  width: 40%;
   border-radius: 1rem;
   border-style: solid;
   border-width: 3px;
   border-color: var(--green);
   padding: 1rem;
   padding-top: 0px;
+  margin-bottom: 1rem;
   float: left;
   margin-right: 1rem;
 }
