@@ -156,6 +156,7 @@ form.button-invert input {
   margin-bottom: 1rem;
   float: left;
   margin-right: 1rem;
+  margin-left: 1rem;
 }
 
 .story-card p:first-of-type {
