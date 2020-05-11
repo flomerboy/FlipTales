@@ -41,10 +41,26 @@ figure img {
   width: 100%;
 }
 
+#hero-image {
+  width: 80%;
+}
+
 h1 {
   text-align: center;
   font-size: 3rem;
   line-height: 3.8rem;
+  font-weight: normal;
+}
+
+.jumbo-numbers{
+  font-size: 5rem;
+  line-height: 6rem;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  line-height: 2.4rem;
   font-weight: normal;
 }
 
@@ -76,7 +92,7 @@ nav {
   position: fixed;
   width: 100%;
   top: 0;
-  background-color: rgba(255,255,255,.97);
+  background-color: rgba(255,255,255,.95);
 }
 
 nav img {
@@ -109,7 +125,7 @@ nav form.button-invert input {
 }
 
 form.button input {
-  padding: 0.75rem 1rem;
+  padding: 0.6rem 1.2rem;
   border: 0;
   background-color: var(--green);
   color: white;
@@ -123,7 +139,7 @@ form.button input {
 }
 
 form.button-invert input {
-  padding: 0.6rem .6rem;
+  padding: 0.6rem 1.2rem;
   color: var(--green);
   background-color: white;
   text-decoration: none;
@@ -141,8 +157,24 @@ form.button-invert input {
   margin-top: 3em;
 }
 
+.u-mar-top-lg {
+  margin-top: 6em;
+}
+
 .u-center {
   text-align: center;
+}
+
+.icon {
+  width: 48px;
+}
+
+.squares img {
+  max-width: 300px;
+}
+
+#coin-toss-image {
+  border-radius: 25px;
 }
 
 .story-card {
@@ -182,6 +214,27 @@ form.button-invert input {
     clear: both;
     content: "";
     display: block;
+}
+
+.u-text-align-center {
+  text-align: center;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.separator::before, .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--green);
+}
+.separator::before {
+    margin-right: .25em;
+}
+.separator::after {
+    margin-left: .25em;
 }
 
 /*mobile*/
