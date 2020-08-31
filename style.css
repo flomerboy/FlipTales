@@ -136,6 +136,9 @@ form.button input {
   -webkit-appearance: none;
   letter-spacing: 3px;
   border-radius: 8px;
+  border-width: 3px;
+  border-style: solid;
+  border-color: var(--green);
 }
 
 form.button-invert input {
@@ -150,6 +153,7 @@ form.button-invert input {
   letter-spacing: 3px;
   border-radius: 8px;
   border-width: 3px;
+  border-style: solid;
   border-color: var(--green);
 }
 
