@@ -142,7 +142,7 @@ form.button input {
 }
 
 form.button-invert input {
-  padding: 0.6rem 1.2rem;
+  padding: 0.6rem .6rem;
   color: var(--green);
   background-color: white;
   text-decoration: none;
@@ -154,7 +154,7 @@ form.button-invert input {
   border-radius: 8px;
   border-width: 3px;
   border-style: solid;
-  border-color: var(--green);
+  border-color: #FFFFFF;
 }
 
 .u-mar-top {
@@ -190,6 +190,7 @@ form.button-invert input {
   padding: 1rem;
   padding-top: 0px;
   margin-bottom: 1rem;
+  min-width: 400px;
 }
 
 .story-card p:first-of-type {
@@ -241,6 +242,63 @@ form.button-invert input {
     margin-left: .25em;
 }
 
+.card-container{
+  display: flex;
+  justify-content: center;
+}
+
+.vertical-stack{
+  display: flex;
+  flex-direction: column;
+  margin-left: 4%;
+  margin-right: 4%;
+  margin-bottom:0;
+  align-items: center;
+}
+
+select {
+  font-size: 1.5em;
+  text-align: center;
+  margin-top: .5em;
+  border-radius: 8px;
+  padding: 4px;
+  border: var(--green) 2px solid;
+  font-family: 'SharpSansBold';
+}
+
+#creatureCard {
+  width : 30vw;
+  border-radius: 16px;
+
+}
+
+#abilityCard {
+  width : 30vw;
+  border-radius: 16px;
+}
+
+ul.coins {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  margin-left: 0px;
+  margin-bottom:18px;
+  padding: 0px;
+}
+
+ul.coins li img{
+  margin: 1px;
+  width:72px;
+}
+
+.controls{
+  display: flex;
+  flex-direction: column;
+}
+
+ul.coins li.controls img{
+  width: 35px;
+}
 /*mobile*/
 @media only screen
   and (max-device-width: 1024px)
