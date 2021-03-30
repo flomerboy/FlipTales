@@ -1,0 +1,341 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png"/>
+  <title>FlipTales FAQ</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-123279486-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-123279486-1');
+  </script>
+</head>
+<body>
+  <nav>
+    <a href="https://playfliptales.com"><img src="assets/images/fliptales-green-logo.svg" alt="logo-green-nav"></a>
+    <form class="button" action="https://eepurl.com/dBOAbr" method="get">
+      <input type="submit" name="sign up button" value="SIGN UP">
+    </form>
+    <form class="button-invert" action="https://playfliptales.com/stories" method="get">
+      <input type="submit" name="sign up button" value="COMMUNITY">
+    </form>
+    <form class="button-invert" action="https://shop.playfliptales.com/products/fliptales-first-edition" method="get">
+      <input type="submit" name="shop button" value="SHOP">
+    </form>
+  </nav>
+  <br>
+  <br>
+  <br>
+  <h1 id="digitalCardsHeader">Digital Cards & Coins</h1>
+    <div class="card-container">
+      <div class="vertical-stack">
+        <img id="creatureCard" src="assets/images/Creature-4-front.jpg" alt="">
+        <select class="classic" name="creature" id="creature-selector">
+          <option value="4">Arboroid</option>
+          <option value="1">Sauroid</option>
+          <option value="2">Wingoid</option>
+          <option value="3">Insectoid</option>
+        </select>
+      </div>
+      <div class="vertical-stack">
+        <img id="abilityCard" src="assets/images/Ability-1-front.jpg" alt="">
+        <select name="ability" id="ability-selector">
+          <option value="1">Fungus Lord</option>
+          <option value="2">Performer</option>
+          <option value="3">Elementalist</option>
+          <option value="4">Inventor</option>
+        </select>
+      </div>
+    </div>
+    <div class="coinsContainer">
+      <ul class="coins" id="strengthCoins">
+        <li onclick="flipCoins(this);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
+        <li onclick="flipCoins(this);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
+        <li onclick="flipCoins(this);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
+        <li onclick="flipCoins(this);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
+        <li class="controls" id="strengthControls">
+          <img id="strength-plus" src="assets/images/strength-adjust-plus.svg" alt="">
+          <img id="strength-minus" src="assets/images/strength-adjust-minus.svg" alt="">
+        </li>
+      </ul>
+      <ul class="coins" id="magicCoins">
+        <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+        <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+        <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+        <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+        <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+        <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+        <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+        <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+        <li class="controls" id="magicControls">
+          <img id="magic-plus" src="assets/images/magic-adjust-plus.svg" alt="">
+          <img id="magic-minus" src="assets/images/magic-adjust-minus.svg" alt="">
+        </li>
+      </ul>
+      <ul class="coins" id="smartsCoins">
+        <li onclick="flipCoins(this);"><img src="assets/images/coin-smarts-heads.svg" alt=""></li>
+        <li onclick="flipCoins(this);"><img src="assets/images/coin-smarts-heads.svg" alt=""></li>
+        <li class="controls" id="smartsControls">
+          <img id="smarts-plus" src="assets/images/smarts-adjust-plus.svg" alt="">
+          <img id="smarts-minus" src="assets/images/smarts-adjust-minus.svg" alt="">
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      let creatureIndex = 4;
+      let abilityIndex = 1;
+      let creatureCardIsFaceUp = true;
+      let abilityCardIsFaceUp = true;
+
+      let abilityCardStats = [
+        [2,4,1], //fungus lord
+        [3,3,1], //performer
+        [1,4,2], //elementalist
+        [2,1,4] //inventor
+      ]
+
+      let creatureCardStats = [
+        [1,2,4], //sauroid
+        [3,1,3], //wingoid
+        [2,3,2], //insectoid
+        [2,4,1]  //arboroid
+      ]
+
+      let currentCharacterStats = [0,0,0];
+      let currentCharacterBonuses = [0,0,0];
+
+      currentCharacterStats[0] = abilityCardStats[abilityIndex - 1][0] + creatureCardStats[creatureIndex - 1][0] + currentCharacterBonuses[0];
+      currentCharacterStats[1] = abilityCardStats[abilityIndex - 1][1] + creatureCardStats[creatureIndex - 1][1] + currentCharacterBonuses[1];
+      currentCharacterStats[2] = abilityCardStats[abilityIndex - 1][2] + creatureCardStats[creatureIndex - 1][2] + currentCharacterBonuses[2];
+
+      let creatureCard = document.getElementById("creatureCard");
+      let abilityCard = document.getElementById("abilityCard");
+      let creatureSelector = document.getElementById("creature-selector");
+      let abilitySelector = document.getElementById("ability-selector");
+
+      let strengthCoins = document.getElementById("strengthCoins");
+      let magicCoins = document.getElementById("magicCoins");
+      let smartsCoins = document.getElementById("smartsCoins");
+
+
+      let strengthPlus = document.getElementById("strength-plus");
+      let strengthMinus = document.getElementById("strength-minus");
+      let magicPlus = document.getElementById("magic-plus");
+      let magicMinus = document.getElementById("magic-minus");
+      let smartsPlus = document.getElementById("smarts-plus");
+      let smartsMinus = document.getElementById("smarts-minus");
+
+      strengthPlus.onclick = strengthMinus.onclick = magicPlus.onclick = magicMinus.onclick = smartsPlus.onclick = smartsMinus.onclick = function(){
+        bonusCoins(this);
+      }
+
+      function updateCurrentCharacterStats() {
+        currentCharacterStats[0] = abilityCardStats[abilityIndex - 1][0] + creatureCardStats[creatureIndex - 1][0] + currentCharacterBonuses[0];
+        currentCharacterStats[1] = abilityCardStats[abilityIndex - 1][1] + creatureCardStats[creatureIndex - 1][1] + currentCharacterBonuses[1];
+        currentCharacterStats[2] = abilityCardStats[abilityIndex - 1][2] + creatureCardStats[creatureIndex - 1][2] + currentCharacterBonuses[2];
+
+        let strengthCoins = document.getElementById("strengthCoins");
+        let magicCoins = document.getElementById("magicCoins");
+        let smartsCoins = document.getElementById("smartsCoins");
+
+        let allCoins = [strengthCoins,magicCoins,smartsCoins];
+        for (let i = 0 ; i < 3; i++){ //for each stat
+          console.log(allCoins[i].childNodes);
+          let numOfChildElements = allCoins[i].childNodes.length;
+          let numOfCoins = (numOfChildElements - 1) / 2 - 1;
+          let delta = numOfCoins - currentCharacterStats[i];
+          if (delta === 0){
+            //great! do nothing
+          } else if( delta < 0) { //we need to add coins
+            for (let j = 0; j > delta; j--){
+              let textNode = allCoins[i].childNodes[0].cloneNode(true);
+              let coinNode = allCoins[i].childNodes[1].cloneNode(true);
+              allCoins[i].insertBefore(coinNode, allCoins[i].childNodes[0]);
+              console.log(allCoins[i].childNodes);
+              allCoins[i].insertBefore(textNode, allCoins[i].childNodes[0]);
+              console.log(allCoins[i].childNodes);
+            }
+          } else { // we must remove coins
+            for (let j = 0; j < delta; j++){
+              let textNode = allCoins[i].childNodes[0];
+              let coinNode = allCoins[i].childNodes[1];
+              textNode.remove();
+              console.log(allCoins[i].childNodes);
+              allCoins[i].removeChild(coinNode);
+              console.log(allCoins[i].childNodes);
+            }
+          }
+        }
+      }
+
+      function flipCoins(target){
+        updateCurrentCharacterStats();
+        let fileNameString = "strength";
+        let statIndex = 0;
+        if (target.parentNode.id === "strengthCoins"){
+          //
+        } else if (target.parentNode.id === "magicCoins"){
+          fileNameString = "magic";
+          statIndex = 1;
+        } else {
+          fileNameString = "smarts"
+          statIndex = 2;
+        }
+        for (let i = 0; i < currentCharacterStats[statIndex]; i++){
+          let coin = target.parentNode.childNodes[i*2+1];
+          setTimeout(function(){
+            coin.style.opacity = "0";
+          }, 50 * i);
+          let headsOrTails = Math.floor(Math.random()*2);
+          setTimeout(function(){
+            if(headsOrTails === 0){
+              coin.childNodes[0].src = "assets/images/coin-"+ fileNameString +"-heads.svg";
+            } else {
+              coin.childNodes[0].src = "assets/images/coin-"+ fileNameString +"-tails.svg";
+            }
+            coin.style.opacity = "1";
+          }, 50 * i + 50 * currentCharacterStats[0] + 200)
+        }
+      }
+
+      function bonusCoins(target){
+        strengthCoins = document.getElementById("strengthCoins");
+        magicCoins = document.getElementById("magicCoins");
+        smartsCoins = document.getElementById("smartsCoins");
+
+        let allCoins = [strengthCoins,magicCoins,smartsCoins];
+        let numOfChildElements = [allCoins[0].childNodes.length,allCoins[1].childNodes.length,allCoins[2].childNodes.length]
+
+        let i;
+        if (target.id.includes("minus")){
+          if (target.id.includes("strength")){ //remove strength
+            i = 0;
+          } else if (target.id.includes("magic")){ //remove magic
+            i = 1;
+          } else { //remove smarts
+            i = 2;
+          }
+          if (currentCharacterStats[i] + currentCharacterBonuses[i] > 1){
+            currentCharacterBonuses[i]--;
+            let textNode = allCoins[i].childNodes[0];
+            let coinNode = allCoins[i].childNodes[1];
+            textNode.remove();
+            allCoins[i].removeChild(coinNode);
+          } else {
+            alert("You can't have less than one coin! Or you're dead");
+          }
+        } else { //plus
+          if (target.id.includes("strength")){ //add strength
+            i = 0;
+          } else if (target.id.includes("magic")){ //add magic
+            i = 1;
+          } else { //add smarts
+            i = 2;
+          }
+          if (currentCharacterBonuses[i] < 8){
+            currentCharacterBonuses[i]++;
+            let textNode = allCoins[i].childNodes[0].cloneNode(true);
+            let coinNode = allCoins[i].childNodes[1].cloneNode(true);
+            allCoins[i].insertBefore(coinNode, allCoins[i].childNodes[numOfChildElements[i] - 3]);
+            allCoins[i].insertBefore(textNode, allCoins[i].childNodes[numOfChildElements[i] - 3]);
+          } else {
+            alert("You can't have a bonus that big :)");
+          }
+          
+        }
+      }
+
+      function resetCoins(){
+        strengthCoins = document.getElementById("strengthCoins");
+        magicCoins = document.getElementById("magicCoins");
+        smartsCoins = document.getElementById("smartsCoins");
+
+        let allCoins = [strengthCoins,magicCoins,smartsCoins];
+        let numOfChildElements = [allCoins[0].childNodes.length,allCoins[1].childNodes.length,allCoins[2].childNodes.length]
+
+        for (let i = 0; i < 3; i++){
+          if(currentCharacterBonuses[i] === 0){
+            //do nothing, yay!
+          } else if (currentCharacterBonuses[i] < 0){ //add coins back
+            for (let j = 0; j > currentCharacterBonuses[i]; j--){
+              let textNode = allCoins[i].childNodes[0].cloneNode(true);
+              let coinNode = allCoins[i].childNodes[1].cloneNode(true);
+              allCoins[i].insertBefore(coinNode, allCoins[i].childNodes[numOfChildElements[i] - 3]);
+              allCoins[i].insertBefore(textNode, allCoins[i].childNodes[numOfChildElements[i] - 3]);
+            }
+          } else { //take coins away
+            for (let j = 0; j < currentCharacterBonuses[i]; j++){
+              let textNode = allCoins[i].childNodes[0];
+              let coinNode = allCoins[i].childNodes[1];
+              textNode.remove();
+              allCoins[i].removeChild(coinNode);
+            }
+          }
+        }
+        currentCharacterBonuses = [0,0,0];
+      }
+
+      creatureCard.onclick = function(){
+        if (creatureCardIsFaceUp){
+          creatureCard.src = "assets/images/Creature-" + creatureIndex+"-back.jpg";
+          creatureCardIsFaceUp = false;
+        } else {
+          creatureCard.src = "assets/images/Creature-" + creatureIndex+"-front.jpg";
+          creatureCardIsFaceUp = true;
+        }
+      }
+
+      abilityCard.onclick = function(){
+        if (abilityCardIsFaceUp){
+          abilityCard.src = "assets/images/Ability-" + abilityIndex+"-back.jpg";
+          abilityCardIsFaceUp = false;
+        } else {
+          abilityCard.src = "assets/images/Ability-" + abilityIndex+"-front.jpg";
+          abilityCardIsFaceUp = true;
+        }
+      }
+
+      creatureSelector.onchange = function (){
+        creatureIndex = creatureSelector.value;
+        creatureCard.src = "assets/images/Creature-" + creatureIndex+ "-front.jpg";
+        creatureCardIsFaceUp = true;
+        resetCoins();
+        updateCurrentCharacterStats()
+      }
+
+      abilitySelector.onchange = function (){
+        abilityIndex = abilitySelector.value;
+        abilityCard.src = "assets/images/Ability-" + abilityIndex+"-front.jpg";
+        abilityCardIsFaceUp = true;
+        resetCoins();
+        updateCurrentCharacterStats()
+      }
+
+    </script>
+
+    <footer>
+      <figure>
+        <img src="assets/images/FlipTales-Free-Sample.png" alt="rendering of FlipTales box and contents">
+      </figure>
+      <form class="button" action="https://eepurl.com/dBOAbr" method="get">
+        <input type="submit" name="sign up button" value="Sign me up!">
+      </form>
+      <h1>
+        <a href="https://instagram.com/playfliptales">
+          <img class="social" src="assets/images/38-instagram.svg"></img>
+        </a>
+        <a href="https://twitter.com/playfliptales">
+          <img class="social" src="assets/images/03-twitter.svg"></img>
+        </a>
+      </h1>
+    </footer>
+  </body>
+
+
+  

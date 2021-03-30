@@ -261,15 +261,18 @@ select {
   text-align: center;
   margin-top: .5em;
   border-radius: 8px;
-  padding: 4px;
+  padding: 6px;
+  padding-left:12px;
   border: var(--green) 2px solid;
   font-family: 'SharpSansBold';
+
+  -webkit-appearance: none; -moz-appearance: none; appearance: none; padding-right: 30px; 
+  background: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>') 100% 50% no-repeat;
 }
 
 #creatureCard {
   width : 30vw;
   border-radius: 16px;
-
 }
 
 #abilityCard {
@@ -305,6 +308,29 @@ ul.coins li.controls img{
   and (-webkit-min-device-pixel-ratio: 1) {
     .card-container{
       flex-direction: column;
+    }
+    select {
+      font-size: 3em;
+      background-color: white;
+      padding:.25em .5em;
+    }
+    .coins{
+      flex-direction: row;
+    }
+    .vertical-stack{
+      margin-bottom: 34px;
+    }
+    #creature-selector{
+      margin-bottom: 34px;
+    }
+    #digitalCardsHeader{
+      margin-top: 64px;
+    }
+    #creatureCard {
+      width : 80vw;
+    }
+    #abilityCard {
+      width: 80vw;
     }
     article {
       margin-left: 5%;
