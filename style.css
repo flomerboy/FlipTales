@@ -250,6 +250,7 @@ form.button-invert input {
   margin-right: 4%;
   margin-bottom:0;
   align-items: center;
+  perspective: 1200px;
 }
 
 select {
@@ -271,7 +272,7 @@ select {
   border-radius: 16px;
   transition: transform 500ms;
   transition-timing-function: ease-in-out;
-  perspective: 100px;
+  transform-style: preserve-3d;
 }
 
 #abilityCard {
@@ -279,7 +280,7 @@ select {
   border-radius: 16px;
   transition: transform 500ms;
   transition-timing-function: ease-in-out;
-  perspective: 100px;
+  transform-style: preserve-3d;
 }
 
 ul.coins {

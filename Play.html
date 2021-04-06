@@ -131,6 +131,8 @@
       let smartsPlus = document.getElementById("smarts-plus");
       let smartsMinus = document.getElementById("smarts-minus");
 
+      let animationInProgress = {'creature': false, 'ability': false};
+
       strengthPlus.onclick = strengthMinus.onclick = magicPlus.onclick = magicMinus.onclick = smartsPlus.onclick = smartsMinus.onclick = function(){
         bonusCoins(this);
       }
@@ -146,7 +148,6 @@
 
         let allCoins = [strengthCoins,magicCoins,smartsCoins];
         for (let i = 0 ; i < 3; i++){ //for each stat
-          console.log(allCoins[i].childNodes);
           let numOfChildElements = allCoins[i].childNodes.length;
           let numOfCoins = (numOfChildElements - 1) / 2 - 1;
           let delta = numOfCoins - currentCharacterStats[i];
@@ -157,18 +158,14 @@
               let textNode = allCoins[i].childNodes[0].cloneNode(true);
               let coinNode = allCoins[i].childNodes[1].cloneNode(true);
               allCoins[i].insertBefore(coinNode, allCoins[i].childNodes[0]);
-              console.log(allCoins[i].childNodes);
               allCoins[i].insertBefore(textNode, allCoins[i].childNodes[0]);
-              console.log(allCoins[i].childNodes);
             }
           } else { // we must remove coins
             for (let j = 0; j < delta; j++){
               let textNode = allCoins[i].childNodes[0];
               let coinNode = allCoins[i].childNodes[1];
               textNode.remove();
-              console.log(allCoins[i].childNodes);
               allCoins[i].removeChild(coinNode);
-              console.log(allCoins[i].childNodes);
             }
           }
         }
@@ -282,30 +279,44 @@
       }
 
       creatureCard.onclick = function(){
-        if (creatureCardIsFaceUp){
-          creatureCard.style.transform = "rotateY(180deg)";
-          creatureCardIsFaceUp = false;
-          setTimeout(function(){
-            creatureCard.src = "assets/images/Creature-" + creatureIndex+"-back.jpg";
-          },250)
-        } else {
-          creatureCard.style.transform = "rotateY(0deg)";
-          creatureCardIsFaceUp = true;
-          setTimeout(function(){
-            creatureCard.src = "assets/images/Creature-" + creatureIndex+"-front.jpg";
-          },250)
+        if (!animationInProgress.creature){
+          animationInProgress.creature = true;
+          if (creatureCardIsFaceUp){
+            creatureCard.style.transform = "rotateY(180deg)";
+            setTimeout(function(){
+              creatureCard.src = "assets/images/Creature-" + creatureIndex+"-back.jpg";
+              creatureCardIsFaceUp = false;
+              animationInProgress.creature = false;
+            },250)
+          } else {
+            creatureCard.style.transform = "rotateY(0deg)";
+            setTimeout(function(){
+              creatureCard.src = "assets/images/Creature-" + creatureIndex+"-front.jpg";
+              creatureCardIsFaceUp = true;
+              animationInProgress.creature = false;
+            },250)
+          }
         }
       }
 
       abilityCard.onclick = function(){
-        if (abilityCardIsFaceUp){
-          abilityCard.style.transform = "rotateY(180deg)";
-          abilityCard.src = "assets/images/Ability-" + abilityIndex+"-back.jpg";
-          abilityCardIsFaceUp = false;
-        } else {
-          abilityCard.style.transform = "rotateY(0deg)";
-          abilityCard.src = "assets/images/Ability-" + abilityIndex+"-front.jpg";
-          abilityCardIsFaceUp = true;
+        if (!animationInProgress.ability){
+          animationInProgress.ability = true;
+          if (abilityCardIsFaceUp){
+            abilityCard.style.transform = "rotateY(180deg)";
+            setTimeout(function(){
+              abilityCard.src = "assets/images/Ability-" + abilityIndex+"-back.jpg";
+              abilityCardIsFaceUp = false;
+              animationInProgress.ability = false;
+            },250)
+          } else {
+            abilityCard.style.transform = "rotateY(0deg)";
+            setTimeout(function(){
+              abilityCard.src = "assets/images/Ability-" + abilityIndex+"-front.jpg";
+              abilityCardIsFaceUp = true;
+              animationInProgress.ability = false;
+            },250)
+          }
         }
       }
 
@@ -314,7 +325,8 @@
         creatureCard.src = "assets/images/Creature-" + creatureIndex+ "-front.jpg";
         creatureCardIsFaceUp = true;
         resetCoins();
-        updateCurrentCharacterStats()
+        updateCurrentCharacterStats();
+        flipAllCoins();
       }
 
       abilitySelector.onchange = function (){
@@ -322,7 +334,17 @@
         abilityCard.src = "assets/images/Ability-" + abilityIndex+"-front.jpg";
         abilityCardIsFaceUp = true;
         resetCoins();
-        updateCurrentCharacterStats()
+        updateCurrentCharacterStats();
+        flipAllCoins();
+      }
+
+      function flipAllCoins(){
+        let firstStrengthCoin = strengthCoins.childNodes[1];
+        let firstMagicCoin = magicCoins.childNodes[1];
+        let firstSmartsCoin = smartsCoins.childNodes[1];
+        flipCoins(firstStrengthCoin);
+        flipCoins(firstMagicCoin);
+        flipCoins(firstSmartsCoin);
       }
 
     </script>
