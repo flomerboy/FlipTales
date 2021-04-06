@@ -18,27 +18,24 @@
 <body>
   <nav>
     <a href="https://playfliptales.com"><img src="assets/images/fliptales-green-logo.svg" alt="logo-green-nav"></a>
-    <form class="button" action="https://shop.playfliptales.com/products/fliptales-first-edition" method="get">
-      <input type="submit" name="shop button" value="SHOP">
+    <form class="button" action="https://eepurl.com/dBOAbr" method="get">
+      <input type="submit" name="sign up button" value="SIGN UP">
     </form>
     <form class="button-invert" action="https://playfliptales.com/stories" method="get">
       <input type="submit" name="sign up button" value="COMMUNITY">
     </form>
-    <form class="button-invert" action="https://playfliptales.com/FAQ" method="get">
-      <input type="submit" name="FAQ button" value="FAQ">
-    </form>
-    <form class="button-invert" action="https://playfliptales.com/Play" method="get">
-      <input type="submit" name="Play button" value="PLAY">
+    <form class="button-invert" action="https://shop.playfliptales.com/products/fliptales-first-edition" method="get">
+      <input type="submit" name="shop button" value="SHOP">
     </form>
   </nav>
   <br>
   <br>
   <br>
-  <h1> Digital Cards & Coins</h1>
+  <h1 id="digitalCardsHeader">Digital Cards & Coins</h1>
     <div class="card-container">
       <div class="vertical-stack">
         <img id="creatureCard" src="assets/images/Creature-4-front.jpg" alt="">
-        <select name="creature" id="creature-selector">
+        <select class="classic" name="creature" id="creature-selector">
           <option value="4">Arboroid</option>
           <option value="1">Sauroid</option>
           <option value="2">Wingoid</option>
@@ -89,7 +86,7 @@
         </li>
       </ul>
     </div>
-    
+
     <script>
       let creatureIndex = 4;
       let abilityIndex = 1;
@@ -286,9 +283,11 @@
 
       creatureCard.onclick = function(){
         if (creatureCardIsFaceUp){
+          creatureCard.style.transform = "rotateY(180deg)";
           creatureCard.src = "assets/images/Creature-" + creatureIndex+"-back.jpg";
           creatureCardIsFaceUp = false;
         } else {
+          creatureCard.style.transform = "rotateY(0deg)";
           creatureCard.src = "assets/images/Creature-" + creatureIndex+"-front.jpg";
           creatureCardIsFaceUp = true;
         }
@@ -296,9 +295,11 @@
 
       abilityCard.onclick = function(){
         if (abilityCardIsFaceUp){
+          abilityCard.style.transform = "rotateY(180deg)";
           abilityCard.src = "assets/images/Ability-" + abilityIndex+"-back.jpg";
           abilityCardIsFaceUp = false;
         } else {
+          abilityCard.style.transform = "rotateY(0deg)";
           abilityCard.src = "assets/images/Ability-" + abilityIndex+"-front.jpg";
           abilityCardIsFaceUp = true;
         }
