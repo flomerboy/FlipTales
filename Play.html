@@ -123,7 +123,6 @@
       let magicCoins = document.getElementById("magicCoins");
       let smartsCoins = document.getElementById("smartsCoins");
 
-
       let strengthPlus = document.getElementById("strength-plus");
       let strengthMinus = document.getElementById("strength-minus");
       let magicPlus = document.getElementById("magic-plus");
@@ -132,6 +131,22 @@
       let smartsMinus = document.getElementById("smarts-minus");
 
       let animationInProgress = {'creature': false, 'ability': false};
+
+      let imageURLs = [
+        'assets/images/Ability-1-back.jpg','assets/images/Ability-1-front.jpg',
+        'assets/images/Ability-2-back.jpg','assets/images/Ability-2-front.jpg',
+        'assets/images/Ability-3-back.jpg','assets/images/Ability-3-front.jpg',
+        'assets/images/Ability-4-back.jpg','assets/images/Ability-4-front.jpg',
+        'assets/images/Creature-1-back.jpg','assets/images/Creature-1-front.jpg',
+        'assets/images/Creature-2-back.jpg','assets/images/Creature-2-front.jpg',
+        'assets/images/Creature-3-back.jpg','assets/images/Creature-3-front.jpg',
+        'assets/images/Creature-4-back.jpg','assets/images/Creature-4-front.jpg',
+      ];
+
+      for (let i = 0; i < imageURLs.length; i++){
+        preloadImage(imageURLs[i]);
+        console.log("loading image" + i)
+      }
 
       strengthPlus.onclick = strengthMinus.onclick = magicPlus.onclick = magicMinus.onclick = smartsPlus.onclick = smartsMinus.onclick = function(){
         bonusCoins(this);
@@ -365,6 +380,11 @@
         flipCoins(firstStrengthCoin);
         flipCoins(firstMagicCoin);
         flipCoins(firstSmartsCoin);
+      }
+
+      function preloadImage(url){
+          var img=new Image();
+          img.src=url;
       }
 
     </script>
