@@ -322,7 +322,17 @@
 
       creatureSelector.onchange = function (){
         creatureIndex = creatureSelector.value;
-        creatureCard.src = "assets/images/Creature-" + creatureIndex+ "-front.jpg";
+        if (creatureCard.style.transform.includes("180deg")){
+          creatureCard.style.transform = "rotateY(0deg)"
+          setTimeout(function(){
+            creatureCard.src = "assets/images/Creature-" + creatureIndex+ "-front.jpg";
+            creatureCardIsFaceUp = true;
+            animationInProgress.creature = false;
+          },250);
+        } else {
+          creatureCard.src = "assets/images/Creature-" + creatureIndex+ "-front.jpg";
+        }
+
         creatureCardIsFaceUp = true;
         resetCoins();
         updateCurrentCharacterStats();
@@ -331,7 +341,17 @@
 
       abilitySelector.onchange = function (){
         abilityIndex = abilitySelector.value;
-        abilityCard.src = "assets/images/Ability-" + abilityIndex+"-front.jpg";
+        if (abilityCard.style.transform.includes("180deg")) {
+          abilityCard.style.transform = "rotateY(0deg)"
+          setTimeout(function(){
+            abilityCard.src = "assets/images/Ability-" + abilityIndex+"-front.jpg";
+            abilityCardIsFaceUp = true;
+            animationInProgress.ability = false;
+          },250);
+        } else {
+          abilityCard.src = "assets/images/Ability-" + abilityIndex+"-front.jpg";
+        }
+
         abilityCardIsFaceUp = true;
         resetCoins();
         updateCurrentCharacterStats();
