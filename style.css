@@ -269,11 +269,17 @@ select {
 #creatureCard {
   width : 30vw;
   border-radius: 16px;
+  transition: transform 500ms;
+  transition-timing-function: ease-in-out;
+  perspective: 100px;
 }
 
 #abilityCard {
   width : 30vw;
   border-radius: 16px;
+  transition: transform 500ms;
+  transition-timing-function: ease-in-out;
+  perspective: 100px;
 }
 
 ul.coins {
@@ -324,16 +330,10 @@ ul.coins li.controls img{
     }
     #creatureCard {
       width : 80vw;
-      transition: transform 500ms;
-      transition-timing-function: ease-in-out;
-      perspective: 100px;
     }
 
     #abilityCard {
       width: 80vw;
-      transition: transform 500ms;
-      transition-timing-function: ease-in-out;
-      perspective: 100px;
     }
     article {
       margin-left: 5%;

@@ -247,7 +247,7 @@
           } else {
             alert("You can't have a bonus that big :)");
           }
-          
+
         }
       }
 
@@ -284,12 +284,16 @@
       creatureCard.onclick = function(){
         if (creatureCardIsFaceUp){
           creatureCard.style.transform = "rotateY(180deg)";
-          creatureCard.src = "assets/images/Creature-" + creatureIndex+"-back.jpg";
           creatureCardIsFaceUp = false;
+          setTimeout(function(){
+            creatureCard.src = "assets/images/Creature-" + creatureIndex+"-back.jpg";
+          },250)
         } else {
           creatureCard.style.transform = "rotateY(0deg)";
-          creatureCard.src = "assets/images/Creature-" + creatureIndex+"-front.jpg";
           creatureCardIsFaceUp = true;
+          setTimeout(function(){
+            creatureCard.src = "assets/images/Creature-" + creatureIndex+"-front.jpg";
+          },250)
         }
       }
 
@@ -340,6 +344,3 @@
       </h1>
     </footer>
   </body>
-
-
-  
