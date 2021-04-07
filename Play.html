@@ -18,14 +18,17 @@
 <body>
   <nav>
     <a href="https://playfliptales.com"><img src="assets/images/fliptales-green-logo.svg" alt="logo-green-nav"></a>
-    <form class="button" action="https://eepurl.com/dBOAbr" method="get">
-      <input type="submit" name="sign up button" value="SIGN UP">
+    <form class="button" action="https://shop.playfliptales.com/products/fliptales-first-edition" method="get">
+      <input type="submit" name="shop button" value="SHOP">
     </form>
     <form class="button-invert" action="https://playfliptales.com/stories" method="get">
       <input type="submit" name="sign up button" value="COMMUNITY">
     </form>
-    <form class="button-invert" action="https://shop.playfliptales.com/products/fliptales-first-edition" method="get">
-      <input type="submit" name="shop button" value="SHOP">
+    <form class="button-invert" action="https://playfliptales.com/FAQ" method="get">
+      <input type="submit" name="FAQ button" value="FAQ">
+    </form>
+    <form class="button-invert" action="https://playfliptales.com/Play" method="get">
+      <input type="submit" name="Play button" value="PLAY">
     </form>
   </nav>
   <br>
@@ -130,6 +133,13 @@
       let smartsPlus = document.getElementById("smarts-plus");
       let smartsMinus = document.getElementById("smarts-minus");
 
+      let strengthControls = document.getElementById("strengthControls");
+      let magicControls = document.getElementById("magicControls");
+      let smartsControls = document.getElementById("smartsControls");
+
+      let coinControls = [strengthControls, magicControls, smartsControls];
+
+
       let animationInProgress = {'creature': false, 'ability': false};
 
       let imageURLs = [
@@ -186,7 +196,10 @@
         }
       }
 
-      function flipCoins(target){
+      function flipCoins(target, newCoinTotal){
+        if(newCoinTotal === undefined){
+          newCoinTotal=false;
+        }
         updateCurrentCharacterStats();
         let fileNameString = "strength";
         let statIndex = 0;
@@ -199,6 +212,16 @@
           fileNameString = "smarts"
           statIndex = 2;
         }
+        if(newCoinTotal){
+          setTimeout(function(){
+            coinControls[statIndex].style.opacity = '0';
+          }, 50 * currentCharacterStats[statIndex]);
+          
+          setTimeout(function(){
+            coinControls[statIndex].style.opacity= '1';
+          }, 50 * currentCharacterStats[statIndex] + 50 * currentCharacterStats[0] + 200);
+        }
+
         for (let i = 0; i < currentCharacterStats[statIndex]; i++){
           let coin = target.parentNode.childNodes[i*2+1];
           setTimeout(function(){
@@ -377,9 +400,9 @@
         let firstStrengthCoin = strengthCoins.childNodes[1];
         let firstMagicCoin = magicCoins.childNodes[1];
         let firstSmartsCoin = smartsCoins.childNodes[1];
-        flipCoins(firstStrengthCoin);
-        flipCoins(firstMagicCoin);
-        flipCoins(firstSmartsCoin);
+        flipCoins(firstStrengthCoin,true);
+        flipCoins(firstMagicCoin,true);
+        flipCoins(firstSmartsCoin,true);
       }
 
       function preloadImage(url){
