@@ -14,41 +14,69 @@
 
     gtag('config', 'UA-123279486-1');
   </script>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
 </head>
 <body>
   <nav>
     <a href="https://playfliptales.com"><img src="assets/images/fliptales-green-logo.svg" alt="logo-green-nav"></a>
-    <form class="button" action="https://shop.playfliptales.com/products/fliptales-first-edition" method="get">
+    <form class="button nav-item" action="https://shop.playfliptales.com/products/fliptales-first-edition" method="get">
       <input type="submit" name="shop button" value="SHOP">
     </form>
-    <form class="button-invert" action="https://playfliptales.com/stories" method="get">
+    <form class="button-invert nav-item" action="https://playfliptales.com/stories" method="get">
       <input type="submit" name="sign up button" value="COMMUNITY">
     </form>
-    <form class="button-invert" action="https://playfliptales.com/FAQ" method="get">
+    <form class="button-invert nav-item" action="https://playfliptales.com/FAQ" method="get">
       <input type="submit" name="FAQ button" value="FAQ">
     </form>
-    <form class="button-invert" action="https://playfliptales.com/Play" method="get">
+    <form class="button-invert nav-item" action="https://playfliptales.com/Play" method="get">
       <input type="submit" name="Play button" value="PLAY">
     </form>
   </nav>
+  <img id="mobile-menu" src="assets/images/icon-menu.svg" />
+  <script>
+    let menu_icon = document.getElementById("mobile-menu");
+    let menu_items = document.getElementsByClassName("nav-item");
+    let menu_is_open = false;
+    menu_icon.onclick = function(){
+      console.log("ho")
+      if (menu_is_open) {
+        for (let i = 0; i < menu_items.length; i++) {
+          setTimeout(function() {
+          menu_items[i].style.display = "none";
+          }, i*40);
+        }
+        menu_icon.src = "assets/images/icon-menu.svg"
+      } else {
+        for (let i = 0; i < menu_items.length; i++) {
+          setTimeout(function() {
+          menu_items[i].style.display = "block";
+        }, i*40);
+        }
+        menu_icon.src = "assets/images/icon-close.svg"
+      }
+      menu_is_open = !menu_is_open;
+    }
+  </script>
   <article>
+    <br>
     <h1 class="u-mar-top">FAQ</h1>
+    <br>
     <section class="card-container">
       <a>
-        <div class="story-card">
+        <div class="story-card jumbo">
           <h2>Q: How does combat work in FlipTales?</h2>
           <h2 style="font-family: 'SharpSansMedium';">A: Make a flip to deal damage, and the number of heads is the amount of damage you deal. Players (or other characters in the story) lose a Strength coin for each point of damage. If you run out of Strength coins, you're toast!<br>
           If the story calls for it, you might allow players to make a flip to defend, deal damage to magic instead, or even to smarts! The rules are here to support to story so use them as you see fit.</h2>
         </div>
-        <div class="story-card">
+        <div class="story-card jumbo">
           <h2>Q: Can more than one person play the same character? or the Wiz?</h2>
           <h2 style="font-family: 'SharpSansMedium';">A: Yes! You are encouraged to play with and experiment with the rules.</h2>
         </div>
-        <div class="story-card">
+        <div class="story-card jumbo">
           <h2>Q: Can I help another player with a flip?</h2>
           <h2 style="font-family: 'SharpSansMedium';">A: Yes! I recommend this approach: If the helper succeeds on a flip to help their buddy, give the buddy an extra coin on their flip.</h2>
         </div>
-        <div class="story-card">
+        <div class="story-card jumbo">
           <h2>Q: Can I only do the things on my Ability card??</h2>
           <h2 style="font-family: 'SharpSansMedium';">A: No! You can do pretty much anything you can think of that makes sense in the game universe, you just won't have bonuses to do them. For example, if you find a shovel, you can use it even though you don't have "Use Shovel" as an ability.</h2>
         </div>

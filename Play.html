@@ -5,6 +5,8 @@
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-123279486-1"></script>
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() {
@@ -18,24 +20,53 @@
 <body>
   <nav>
     <a href="https://playfliptales.com"><img src="assets/images/fliptales-green-logo.svg" alt="logo-green-nav"></a>
-    <form class="button" action="https://shop.playfliptales.com/products/fliptales-first-edition" method="get">
+    <form class="button nav-item" action="https://shop.playfliptales.com/products/fliptales-first-edition" method="get">
       <input type="submit" name="shop button" value="SHOP">
     </form>
-    <form class="button-invert" action="https://playfliptales.com/stories" method="get">
+    <form class="button-invert nav-item" action="https://playfliptales.com/stories" method="get">
       <input type="submit" name="sign up button" value="COMMUNITY">
     </form>
-    <form class="button-invert" action="https://playfliptales.com/FAQ" method="get">
+    <form class="button-invert nav-item" action="https://playfliptales.com/FAQ" method="get">
       <input type="submit" name="FAQ button" value="FAQ">
     </form>
-    <form class="button-invert" action="https://playfliptales.com/Play" method="get">
+    <form class="button-invert nav-item" action="https://playfliptales.com/Play" method="get">
       <input type="submit" name="Play button" value="PLAY">
     </form>
   </nav>
+  <img id="mobile-menu" src="assets/images/icon-menu.svg" />
+  <script>
+    let menu_icon = document.getElementById("mobile-menu");
+    let menu_items = document.getElementsByClassName("nav-item");
+    let menu_is_open = false;
+    menu_icon.onclick = function(){
+      console.log("ho")
+      if (menu_is_open) {
+        for (let i = 0; i < menu_items.length; i++) {
+          setTimeout(function() {
+          menu_items[i].style.display = "none";
+          }, i*40);
+        }
+        menu_icon.src = "assets/images/icon-menu.svg"
+      } else {
+        for (let i = 0; i < menu_items.length; i++) {
+          setTimeout(function() {
+          menu_items[i].style.display = "block";
+        }, i*40);
+        }
+        menu_icon.src = "assets/images/icon-close.svg"
+      }
+      menu_is_open = !menu_is_open;
+    }
+  </script>
+  <br>
+
   <br>
   <br>
+
   <br>
+  <article>
   <h1 id="digitalCardsHeader">Digital Cards & Coins</h1>
-    <div class="card-container">
+    <div class="playing-card-container">
       <div class="vertical-stack">
         <img id="creatureCard" src="assets/images/Creature-4-front.jpg" alt="">
         <select class="classic" name="creature" id="creature-selector">
@@ -89,7 +120,7 @@
         </li>
       </ul>
     </div>
-
+  </article>
     <script>
       let creatureIndex = 4;
       let abilityIndex = 1;

@@ -5,6 +5,7 @@
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-123279486-1"></script>
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() {
@@ -18,21 +19,57 @@
 <body>
   <nav>
     <a href="https://playfliptales.com"><img src="assets/images/fliptales-green-logo.svg" alt="logo-green-nav"></a>
-    <form class="button" action="https://shop.playfliptales.com/products/fliptales-first-edition" method="get">
+    <form class="button nav-item" action="https://shop.playfliptales.com/products/fliptales-first-edition" method="get">
       <input type="submit" name="shop button" value="SHOP">
     </form>
-    <form class="button-invert" action="https://playfliptales.com/stories" method="get">
+    <form class="button-invert nav-item" action="https://playfliptales.com/stories" method="get">
       <input type="submit" name="sign up button" value="COMMUNITY">
     </form>
-    <form class="button-invert" action="https://playfliptales.com/FAQ" method="get">
+    <form class="button-invert nav-item" action="https://playfliptales.com/FAQ" method="get">
       <input type="submit" name="FAQ button" value="FAQ">
     </form>
-    <form class="button-invert" action="https://playfliptales.com/Play" method="get">
+    <form class="button-invert nav-item" action="https://playfliptales.com/Play" method="get">
       <input type="submit" name="Play button" value="PLAY">
     </form>
   </nav>
+  <img id="mobile-menu" src="assets/images/icon-menu.svg" />
+  <script>
+    let menu_icon = document.getElementById("mobile-menu");
+    let menu_items = document.getElementsByClassName("nav-item");
+    let menu_is_open = false;
+    menu_icon.onclick = function(){
+      console.log("ho")
+      if (menu_is_open) {
+        for (let i = 0; i < menu_items.length; i++) {
+          setTimeout(function() {
+          menu_items[i].style.display = "none";
+          }, i*40);
+        }
+        menu_icon.src = "assets/images/icon-menu.svg"
+      } else {
+        for (let i = 0; i < menu_items.length; i++) {
+          setTimeout(function() {
+          menu_items[i].style.display = "block";
+        }, i*40);
+        }
+        menu_icon.src = "assets/images/icon-close.svg"
+      }
+      menu_is_open = !menu_is_open;
+    }
+  </script>
+
+
   <article>
-    <h1 class="u-mar-top">Stories</h1>
+    <br>
+    <br>
+    <h1 class="u-mar-top">Get Involved</h1>
+      <p>To create your own story, download this template and email your story to ryan@playfliptales.com</p>
+      <form class="button u-center" action="https://playfliptales.com/assets/stories/Custom%20Story%20Template.pdf" method="get">
+        <input type="submit" name="Download Button" value="DOWNLOAD THE TEMPLATE">
+      </form>
+      <br>
+      <br>
+    <h1 class="">Stories</h1>
     <p>Featured Stories</p>
     <section class="card-container">
       <a href="https://playfliptales.com/assets/stories/FlipTales%20|%20A%20Magical%20Friendship.pdf">
@@ -101,49 +138,42 @@
           <p class="mono">Ryan Mather, 40-50 minutes, Genres: Fantasy</p>
         </div>
       </a>
-      <section class="card-container">
-        <a href="https://playfliptales.com/assets/stories/Quake%20in%20Dunwich.pdf">
-          <div class="story-card">
-            <h2>Quake in Dunwich</h2>
-            <p>A terrible quake has shattered the land holding a young boy hostage.</p>
-            <p class="mono">Anthony McNicoll, 30-45 minutes, Genres: Horror, Fantasy</p>
-          </div>
-        </a>
-
-        <a href="https://playfliptales.com/assets/stories/The%20Sacred%20Slab%20and%20the%20Magma%20Warriors.pdf">
-          <div class="story-card">
-            <h2>The Sacred Slab and the Magma Warriors</h2>
-            <p>After the the Sacred Slab disappears, players work to restore peace to Pebbleton.</p>
-            <p class="mono">Nia Starr, 30-45 minutes, Genres: Fantasy</p>
-          </div>
-        </a>
-        <a href="https://playfliptales.com/assets/stories/Help!%20Bassist%20Missing!.pdf">
-          <div class="story-card">
-            <h2>Help! Bassist Missing!</h2>
-            <p>Help Joni find her missing bassist so that the show can go on!</p>
-            <p class="mono">Emily Pan & Patrick Mather, 30-45 minutes, Genres: Fantasy, Modern, 70's, Noir</p>
-          </div>
-        </a>
-      </section>
+      <a href="https://playfliptales.com/assets/stories/Quake%20in%20Dunwich.pdf">
+        <div class="story-card">
+          <h2>Quake in Dunwich</h2>
+          <p>A terrible quake has shattered the land holding a young boy hostage.</p>
+          <p class="mono">Anthony McNicoll, 30-45 minutes, Genres: Horror, Fantasy</p>
+        </div>
+      </a>
+      <a href="https://playfliptales.com/assets/stories/The%20Sacred%20Slab%20and%20the%20Magma%20Warriors.pdf">
+        <div class="story-card">
+          <h2>The Sacred Slab and the Magma Warriors</h2>
+          <p>After the the Sacred Slab disappears, players work to restore peace to Pebbleton.</p>
+          <p class="mono">Nia Starr, 30-45 minutes, Genres: Fantasy</p>
+        </div>
+      </a>
+      <a href="https://playfliptales.com/assets/stories/Help!%20Bassist%20Missing!.pdf">
+        <div class="story-card">
+          <h2>Help! Bassist Missing!</h2>
+          <p>Help Joni find her missing bassist so that the show can go on!</p>
+          <p class="mono">Emily Pan & Patrick Mather, 30-45 minutes, Genres: Fantasy, Modern, 70's, Noir</p>
+        </div>
+      </a>
+    </section>
 
       <section>
         <h1 class="u-mar-top">For Educators</h1>
         <figure>
-          <img src="assets/images/Lesson-plan.png" alt="a pile of exciting lesson plans">
+          <img src="assets/images/Lesson-plan.png" style="max-width:460px" alt="a pile of exciting lesson plans">
         </figure>
-        <p>Check out the FlipTales Lesson Plan, which outlines 6 lessons to explore writing, game design, and 21st Century Skills. It's designed with 3rd and 4th graders in mind, but scales to other ages and grades.</p>
+        <p id="check-out">Check out the FlipTales Lesson Plan, which outlines 6 lessons to explore writing, game design, and 21st Century Skills. It's designed with 3rd and 4th graders in mind, but scales to other ages and grades.</p>
         <form class="button u-center" action="https://docs.google.com/document/d/1SAwv3gcm5KTXb_OGiInNgY21OrMUkMKiFy9786_eSbg/edit?usp=sharing" method="get">
           <input type="submit" name="Lesson Button" value="EXPLORE THE LESSONS">
         </form>
       </section>
-
-      <h1 class="u-mar-top">Get Involved</h1>
-      <p>To create your own story, download this template and email your story to ryan@playfliptales.com</p>
-      <form class="button u-center" action="https://playfliptales.com/assets/stories/Custom%20Story%20Template.pdf" method="get">
-        <input type="submit" name="Download Button" value="DOWNLOAD THE TEMPLATE">
-      </form>
-
     </article>
+
+
     <footer>
       <figure>
         <img src="assets/images/FlipTales-Free-Sample.png" alt="rendering of FlipTales box and contents">

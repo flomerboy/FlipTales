@@ -15,28 +15,54 @@
 
     gtag('config', 'UA-123279486-1');
   </script>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
 </head>
 <body>
   <nav>
     <a href="https://playfliptales.com"><img src="assets/images/fliptales-green-logo.svg" alt="logo-green-nav"></a>
-    <form class="button" action="https://shop.playfliptales.com/products/fliptales-first-edition" method="get">
+    <form class="button nav-item" action="https://shop.playfliptales.com/products/fliptales-first-edition" method="get">
       <input type="submit" name="shop button" value="SHOP">
     </form>
-    <form class="button-invert" action="https://playfliptales.com/stories" method="get">
+    <form class="button-invert nav-item" action="https://playfliptales.com/stories" method="get">
       <input type="submit" name="sign up button" value="COMMUNITY">
     </form>
-    <form class="button-invert" action="https://playfliptales.com/FAQ" method="get">
+    <form class="button-invert nav-item" action="https://playfliptales.com/FAQ" method="get">
       <input type="submit" name="FAQ button" value="FAQ">
     </form>
-    <form class="button-invert" action="https://playfliptales.com/Play" method="get">
+    <form class="button-invert nav-item" action="https://playfliptales.com/Play" method="get">
       <input type="submit" name="Play button" value="PLAY">
     </form>
   </nav>
+  <img id="mobile-menu" src="assets/images/icon-menu.svg" />
+  <script>
+    let menu_icon = document.getElementById("mobile-menu");
+    let menu_items = document.getElementsByClassName("nav-item");
+    let menu_is_open = false;
+    menu_icon.onclick = function(){
+      console.log("ho")
+      if (menu_is_open) {
+        for (let i = 0; i < menu_items.length; i++) {
+          setTimeout(function() {
+          menu_items[i].style.display = "none";
+          }, i*40);
+        }
+        menu_icon.src = "assets/images/icon-menu.svg"
+      } else {
+        for (let i = 0; i < menu_items.length; i++) {
+          setTimeout(function() {
+          menu_items[i].style.display = "block";
+        }, i*40);
+        }
+        menu_icon.src = "assets/images/icon-close.svg"
+      }
+      menu_is_open = !menu_is_open;
+    }
+  </script>
   <figure>
     <img id="hero-image" src="assets/images/box-plus-parts-render.png" alt="rendering of FlipTales box">
   </figure>
   <article>
-    <h1>Introducing FlipTales, a roleplaying game for all ages.</h1>
+    <h1>Meet FlipTales, the simple, fast, creative roleplaying game for everyone from kids to drunk uncles.</h1>
     <form class="button u-text-align-center" action="https://shop.playfliptales.com" method="get">
       <input type="submit" name="shop button" value="SHOP FLIPTALES">
     </form>
@@ -74,6 +100,8 @@
       <img src="assets/images/green-icon-only-small.jpg" class="icon" alt="FlipTales logo icon">
     </div>
     <h1 class="u-mar-top">What people are saying</h1>
+    <br>
+    <br>
   </article>
   <div class="u-text-align-center squares">
     <img src="assets/images/quote-1.jpg">
