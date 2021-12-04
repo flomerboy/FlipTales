@@ -380,6 +380,7 @@ ul.coins li.controls img{
     .card-container{
       flex-direction: column;
       padding: 0px;
+      margin: auto;
     }
 
     .jumbo h2{
