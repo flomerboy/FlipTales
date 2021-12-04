@@ -409,6 +409,11 @@ ul.coins li.controls img{
       margin-top: 2em;
       margin-bottom: 0;
     }
+
+    .playing-card-container{
+      flex-direction: column;
+    }
+
     #check-out{
       padding: 4vw;
     }
