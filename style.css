@@ -238,6 +238,7 @@ form.button-invert input {
   width: 100%;
   margin:0px;
   max-width: 100%;
+  cursor: pointer;
 }
 
 .u-text-align-center {
@@ -314,6 +315,7 @@ ul.coins {
   margin-left: 0px;
   margin-bottom:18px;
   padding: 0px;
+  cursor: pointer;
 }
 
 ul.coins li img{
