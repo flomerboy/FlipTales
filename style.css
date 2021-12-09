@@ -189,7 +189,6 @@ form.button-invert input {
 }
 
 .story-card {
-  width: 20vw;
   border-radius: 1rem;
   border-style: solid;
   border-width: 3px;
@@ -197,7 +196,7 @@ form.button-invert input {
   padding: 1rem;
   padding-top: 0px;
   margin-bottom: 1rem;
-  min-width: 400px;
+  width: 400px;
 }
 
 .story-card p:first-of-type {
