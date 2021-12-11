@@ -66,9 +66,9 @@
   <br>
   <article>
   <h1 id="digitalCardsHeader">Digital Cards & Coins</h1>
-    <div class="playing-card-container">
-      <div class="vertical-stack">
-        <img id="creatureCard" src="assets/images/Creature-4-front.jpg" alt="">
+    <div class="playing-card-container" >
+      <div class="vertical-stack" id="creature">
+        <img class="playing-card" id="creatureCard" src="assets/images/Creature-4-front.jpg" alt="">
         <select class="classic" name="creature" id="creature-selector">
           <option value="4">Arboroid</option>
           <option value="1">Sauroid</option>
@@ -76,8 +76,8 @@
           <option value="3">Insectoid</option>
         </select>
       </div>
-      <div class="vertical-stack">
-        <img id="abilityCard" src="assets/images/Ability-1-front.jpg" alt="">
+      <div class="vertical-stack" id="ability">
+        <img class="playing-card" id="abilityCard" src="assets/images/Ability-1-front.jpg" alt="">
         <select name="ability" id="ability-selector">
           <option value="1">Fungus Lord</option>
           <option value="2">Performer</option>
@@ -87,38 +87,56 @@
       </div>
     </div>
     <div class="coinsContainer">
-      <ul class="coins" id="strengthCoins">
-        <li onclick="flipCoins(this);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
-        <li onclick="flipCoins(this);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
-        <li onclick="flipCoins(this);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
-        <li onclick="flipCoins(this);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
-        <li class="controls" id="strengthControls">
-          <img id="strength-plus" src="assets/images/strength-adjust-plus.svg" alt="">
-          <img id="strength-minus" src="assets/images/strength-adjust-minus.svg" alt="">
-        </li>
-      </ul>
-      <ul class="coins" id="magicCoins">
-        <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
-        <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
-        <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
-        <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
-        <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
-        <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
-        <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
-        <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
-        <li class="controls" id="magicControls">
-          <img id="magic-plus" src="assets/images/magic-adjust-plus.svg" alt="">
-          <img id="magic-minus" src="assets/images/magic-adjust-minus.svg" alt="">
-        </li>
-      </ul>
-      <ul class="coins" id="smartsCoins">
-        <li onclick="flipCoins(this);"><img src="assets/images/coin-smarts-heads.svg" alt=""></li>
-        <li onclick="flipCoins(this);"><img src="assets/images/coin-smarts-heads.svg" alt=""></li>
-        <li class="controls" id="smartsControls">
-          <img id="smarts-plus" src="assets/images/smarts-adjust-plus.svg" alt="">
-          <img id="smarts-minus" src="assets/images/smarts-adjust-minus.svg" alt="">
-        </li>
-      </ul>
+      <div id="strength">
+        <ul class="coins" id="strengthCoins">
+          <li onclick="flipCoins(this);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
+        </ul>
+        <ul class="coin-control-panel">
+          <li class="controls" id="strengthControls">
+            <img id="strength-minus" src="assets/images/strength-adjust-minus.svg" alt="">
+            <img id="strength-plus" src="assets/images/strength-adjust-plus.svg" alt="">
+            <button class="coin-controls"><img class="button-icon" src="assets/icons/flip.svg" />Flip</button>
+            <button class="coin-controls"><img class="button-icon" src="assets/icons/reset.svg" />Reset</button>
+          </li>
+        </ul>
+      </div>
+      <div id="magic">
+        <ul class="coins" id="magicCoins">
+          <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+        </ul>
+        <ul class="coin-control-panel">
+          <li class="controls" id="magicControls">
+            <img id="magic-minus" src="assets/images/magic-adjust-minus.svg" alt="">
+            <img id="magic-plus" src="assets/images/magic-adjust-plus.svg" alt="">
+            <button class="coin-controls"><img class="button-icon" src="assets/icons/flip.svg" />Flip</button>
+            <button class="coin-controls"><img class="button-icon" src="assets/icons/reset.svg" />Reset</button>
+          </li>
+        </ul>
+      </div>
+      <div id="smarts">
+        <ul class="coins" id="smartsCoins">
+          <li onclick="flipCoins(this);"><img src="assets/images/coin-smarts-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this);"><img src="assets/images/coin-smarts-heads.svg" alt=""></li>
+        </ul>
+        <ul class="coin-control-panel">
+          <li class="controls" id="smartsControls">
+            <img id="smarts-minus" src="assets/images/smarts-adjust-minus.svg" alt="">
+            <img id="smarts-plus" src="assets/images/smarts-adjust-plus.svg" alt="">
+            <button class="coin-controls"><img class="button-icon" src="assets/icons/flip.svg" />Flip</button>
+            <button class="coin-controls"><img class="button-icon" src="assets/icons/reset.svg" />Reset</button>
+          </li>
+        </ul>
+      </div>
     </div>
   </article>
     <script>
@@ -167,6 +185,11 @@
       let strengthControls = document.getElementById("strengthControls");
       let magicControls = document.getElementById("magicControls");
       let smartsControls = document.getElementById("smartsControls");
+
+      let strength = document.getElementById("strength");
+      let magic = document.getElementById("magic");
+      let smarts = document.getElementById("smarts");
+
 
       let coinControls = [strengthControls, magicControls, smartsControls];
 
@@ -345,6 +368,27 @@
           }
         }
         currentCharacterBonuses = [0,0,0];
+      }
+
+      strength.onmouseenter = function(){
+        strengthControls.style.opacity = "1";
+      }
+      strength.onmouseleave = function(){
+        strengthControls.style.opacity = "0";
+      }
+
+      magic.onmouseenter = function(){
+        magicControls.style.opacity = "1";
+      }
+      magic.onmouseleave = function(){
+        magicControls.style.opacity = "0";
+      }
+
+      smarts.onmouseenter = function(){
+        smartsControls.style.opacity = "1";
+      }
+      smarts.onmouseleave = function(){
+        smartsControls.style.opacity = "0";
       }
 
       creatureCard.onclick = function(){
