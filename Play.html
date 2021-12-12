@@ -66,6 +66,7 @@
   <br>
   <article>
   <h1 id="digitalCardsHeader">Digital Cards & Coins</h1>
+  </article>
     <div class="playing-card-container" >
       <div class="vertical-stack" id="creature">
         <img class="playing-card" id="creatureCard" src="assets/images/Creature-4-front.jpg" alt="">
@@ -98,8 +99,8 @@
           <li class="controls" id="strengthControls">
             <img id="strength-minus" src="assets/images/strength-adjust-minus.svg" alt="">
             <img id="strength-plus" src="assets/images/strength-adjust-plus.svg" alt="">
-            <button class="coin-controls"><img class="button-icon" src="assets/icons/flip.svg" />Flip</button>
-            <button class="coin-controls"><img class="button-icon" src="assets/icons/reset.svg" />Reset</button>
+            <button onclick="flipCoins(this,0);" class="coin-controls"><img class="button-icon" src="assets/icons/flip.svg" />Flip</button>
+            <button onclick="resetCoins(0);" class="coin-controls"><img class="button-icon" src="assets/icons/reset.svg" />Reset</button>
           </li>
         </ul>
       </div>
@@ -118,8 +119,8 @@
           <li class="controls" id="magicControls">
             <img id="magic-minus" src="assets/images/magic-adjust-minus.svg" alt="">
             <img id="magic-plus" src="assets/images/magic-adjust-plus.svg" alt="">
-            <button class="coin-controls"><img class="button-icon" src="assets/icons/flip.svg" />Flip</button>
-            <button class="coin-controls"><img class="button-icon" src="assets/icons/reset.svg" />Reset</button>
+            <button onclick="flipCoins(this,1);" class="coin-controls"><img class="button-icon" src="assets/icons/flip.svg" />Flip</button>
+            <button onclick="resetCoins(1);" class="coin-controls"><img class="button-icon" src="assets/icons/reset.svg" />Reset</button>
           </li>
         </ul>
       </div>
@@ -132,13 +133,12 @@
           <li class="controls" id="smartsControls">
             <img id="smarts-minus" src="assets/images/smarts-adjust-minus.svg" alt="">
             <img id="smarts-plus" src="assets/images/smarts-adjust-plus.svg" alt="">
-            <button class="coin-controls"><img class="button-icon" src="assets/icons/flip.svg" />Flip</button>
-            <button class="coin-controls"><img class="button-icon" src="assets/icons/reset.svg" />Reset</button>
+            <button onclick="flipCoins(this,2);" class="coin-controls"><img class="button-icon" src="assets/icons/flip.svg" />Flip</button>
+            <button onclick="resetCoins(2);" class="coin-controls"><img class="button-icon" src="assets/icons/reset.svg" />Reset</button>
           </li>
         </ul>
       </div>
-    </div>
-  </article>
+  </div>
     <script>
       let creatureIndex = 4;
       let abilityIndex = 1;
@@ -190,9 +190,7 @@
       let magic = document.getElementById("magic");
       let smarts = document.getElementById("smarts");
 
-
       let coinControls = [strengthControls, magicControls, smartsControls];
-
 
       let animationInProgress = {'creature': false, 'ability': false};
 
@@ -209,18 +207,139 @@
 
       for (let i = 0; i < imageURLs.length; i++){
         preloadImage(imageURLs[i]);
-        console.log("loading image" + i)
       }
 
       strengthPlus.onclick = strengthMinus.onclick = magicPlus.onclick = magicMinus.onclick = smartsPlus.onclick = smartsMinus.onclick = function(){
-        bonusCoins(this);
+        bonusCoins(this); //add or remove coins when these buttons are clicked
       }
 
-      function updateCurrentCharacterStats() {
-        currentCharacterStats[0] = abilityCardStats[abilityIndex - 1][0] + creatureCardStats[creatureIndex - 1][0] + currentCharacterBonuses[0];
-        currentCharacterStats[1] = abilityCardStats[abilityIndex - 1][1] + creatureCardStats[creatureIndex - 1][1] + currentCharacterBonuses[1];
-        currentCharacterStats[2] = abilityCardStats[abilityIndex - 1][2] + creatureCardStats[creatureIndex - 1][2] + currentCharacterBonuses[2];
+      creatureSelector.onchange = function (){ 
+        creatureIndex = creatureSelector.value;//update index of creature
+        currentCharacterStats[0] = abilityCardStats[abilityIndex - 1][0] + creatureCardStats[creatureIndex - 1][0];//update individual stats
+        currentCharacterStats[1] = abilityCardStats[abilityIndex - 1][1] + creatureCardStats[creatureIndex - 1][1];
+        currentCharacterStats[2] = abilityCardStats[abilityIndex - 1][2] + creatureCardStats[creatureIndex - 1][2];
+        if (creatureCard.style.transform.includes("180deg")){ //if the card is face up, flip it over
+          creatureCard.style.transform = "rotateY(0deg)"
+          setTimeout(function(){
+            creatureCard.src = "assets/images/Creature-" + creatureIndex+ "-front.jpg";
+            creatureCardIsFaceUp = true;
+            animationInProgress.creature = false;
+          },250);
+        } else {
+          creatureCard.src = "assets/images/Creature-" + creatureIndex + "-front.jpg";
+        }
 
+        creatureCardIsFaceUp = true;
+        matchStatsToNewSelection();
+        matchCoinsToStats();
+        flipAllCoins();
+      }
+
+      abilitySelector.onchange = function (){
+        abilityIndex = abilitySelector.value; //update index of current ability
+        
+        if (abilityCard.style.transform.includes("180deg")) { //if the card is face up, flip it over
+          abilityCard.style.transform = "rotateY(0deg)"
+          setTimeout(function(){
+            abilityCard.src = "assets/images/Ability-" + abilityIndex+"-front.jpg";
+            abilityCardIsFaceUp = true;
+            animationInProgress.ability = false;
+          },250);
+        } else {
+          abilityCard.src = "assets/images/Ability-" + abilityIndex+"-front.jpg";
+        }
+        abilityCardIsFaceUp = true;
+        matchStatsToNewSelection();
+        matchCoinsToStats();
+        flipAllCoins();
+      }
+
+      function matchStatsToNewSelection(){ //this gets called when a player selects a new ability or creature card, to get rid of bonuses and update all the stats to match the new cards they have sleected
+        currentCharacterBonuses = [0,0,0]; //cleanse bonuses when switching characters.
+        currentCharacterStats[0] = abilityCardStats[abilityIndex - 1][0] + creatureCardStats[creatureIndex - 1][0];//update individual stats
+        currentCharacterStats[1] = abilityCardStats[abilityIndex - 1][1] + creatureCardStats[creatureIndex - 1][1];
+        currentCharacterStats[2] = abilityCardStats[abilityIndex - 1][2] + creatureCardStats[creatureIndex - 1][2];
+      }
+
+      function resetCoins(index){
+        let coin;
+        let parentElement;
+        let fileNameString;
+        switch (index){
+          case 0:
+            coin = strengthCoins.childNodes[1];
+            parentElement = strengthCoins;
+            fileNameString = "strength";
+            break;
+          case 1:
+            coin = magicCoins.childNodes[1];
+            parentElement = magicCoins;
+            fileNameString = "magic";
+            break;
+          case 2:
+            coin = smartsCoins.childNodes[2];
+            parentElement = smartsCoins;
+            fileNameString = "smarts";
+            break;
+        }
+        
+        for (let i = 0; i < currentCharacterStats[index]; i++){ //clear away current coins
+          let coin = parentElement.childNodes[i*2+1];
+          setTimeout(function(){ //fade it out
+            coin.style.opacity = "0";
+          }, 50 * i);
+        }
+
+        let resetTimeoutDelay = currentCharacterStats[index] * 50;
+
+        currentCharacterBonuses[index] = 0; //cleanse bonuses when switching characters.
+        currentCharacterStats[index] = abilityCardStats[abilityIndex - 1][index] + creatureCardStats[creatureIndex - 1][index];//update individual stats
+
+        setTimeout(function(){
+          let numOfChildElements = parentElement.childNodes.length;
+          let numOfCoins = (numOfChildElements + 1) / 2 - 1; //count how many coins are on the page
+          let delta = numOfCoins - currentCharacterStats[index]; //see what the difference is between them
+          if (delta === 0){
+            //great! do nothing
+          } else if( delta < 0) { //we need to add coins
+            for (let j = 0; j > delta; j--){ 
+              //add in coins until the delta is gone
+              let textNode = parentElement.childNodes[0].cloneNode(true);
+              let coinNode = parentElement.childNodes[1].cloneNode(true);
+              parentElement.appendChild(coinNode);
+              parentElement.appendChild(textNode);
+            }
+          } else { // we must remove coins
+            for (let j = 0; j < delta; j++){
+              //remove coins until the delta is gone
+              let textNode = parentElement.childNodes[0];
+              let coinNode = parentElement.childNodes[1];
+              parentElement.removeChild(textNode);
+              parentElement.removeChild(coinNode);
+            }
+          }
+        }, resetTimeoutDelay);
+
+        setTimeout(function(){
+          for (let i = 0; i < currentCharacterStats[index]; i++){ //loop through all the coins
+            let coin = parentElement.childNodes[i*2+1];
+            let headsOrTails = Math.floor(Math.random()*2); //flip the coin
+            setTimeout(function(){
+              if(headsOrTails === 0){
+                coin.childNodes[0].src = "assets/images/coin-"+ fileNameString +"-heads.svg";
+              } else {
+                coin.childNodes[0].src = "assets/images/coin-"+ fileNameString +"-tails.svg";
+              }
+              coin.style.opacity = "1";
+            }, 50 * i + 50 * currentCharacterStats[0] + 50)
+          }
+        }, resetTimeoutDelay);
+
+
+
+      }
+
+      function matchCoinsToStats() { //count how many coins are on the page, and add or remove coins in order to match the new creature/ability/stats
         let strengthCoins = document.getElementById("strengthCoins");
         let magicCoins = document.getElementById("magicCoins");
         let smartsCoins = document.getElementById("smartsCoins");
@@ -228,60 +347,65 @@
         let allCoins = [strengthCoins,magicCoins,smartsCoins];
         for (let i = 0 ; i < 3; i++){ //for each stat
           let numOfChildElements = allCoins[i].childNodes.length;
-          let numOfCoins = (numOfChildElements - 1) / 2 - 1;
-          let delta = numOfCoins - currentCharacterStats[i];
+          let numOfCoins = (numOfChildElements + 1) / 2 - 1; //count how many coins are on the page
+          let delta = numOfCoins - currentCharacterStats[i]; //see what the difference is between them
+          console.log(delta)
           if (delta === 0){
             //great! do nothing
           } else if( delta < 0) { //we need to add coins
-            for (let j = 0; j > delta; j--){
+            for (let j = 0; j > delta; j--){ 
+              //add in coins until the delta is gone
               let textNode = allCoins[i].childNodes[0].cloneNode(true);
               let coinNode = allCoins[i].childNodes[1].cloneNode(true);
-              allCoins[i].insertBefore(coinNode, allCoins[i].childNodes[0]);
-              allCoins[i].insertBefore(textNode, allCoins[i].childNodes[0]);
+              allCoins[i].appendChild(coinNode);
+              allCoins[i].appendChild(textNode);
             }
           } else { // we must remove coins
             for (let j = 0; j < delta; j++){
+              //remove coins until the delta is gone
               let textNode = allCoins[i].childNodes[0];
               let coinNode = allCoins[i].childNodes[1];
-              textNode.remove();
+              allCoins[i].removeChild(textNode);
               allCoins[i].removeChild(coinNode);
             }
           }
         }
       }
 
-      function flipCoins(target, newCoinTotal){
-        if(newCoinTotal === undefined){
-          newCoinTotal=false;
-        }
-        updateCurrentCharacterStats();
+      function flipCoins(target, statIndex){ //flip all of a single stat's coins
         let fileNameString = "strength";
-        let statIndex = 0;
-        if (target.parentNode.id === "strengthCoins"){
-          //
-        } else if (target.parentNode.id === "magicCoins"){
-          fileNameString = "magic";
-          statIndex = 1;
-        } else {
-          fileNameString = "smarts"
-          statIndex = 2;
-        }
-        if(newCoinTotal){
-          setTimeout(function(){
-            coinControls[statIndex].style.opacity = '0';
-          }, 50 * currentCharacterStats[statIndex]);
-          
-          setTimeout(function(){
-            coinControls[statIndex].style.opacity= '1';
-          }, 50 * currentCharacterStats[statIndex] + 50 * currentCharacterStats[0] + 200);
-        }
+        if (statIndex === undefined){
+          statIndex = 0;
+        } 
 
-        for (let i = 0; i < currentCharacterStats[statIndex]; i++){
-          let coin = target.parentNode.childNodes[i*2+1];
-          setTimeout(function(){
+        if (statIndex === 1) {
+          fileNameString = "magic";
+        } else if (statIndex === 2) {
+          fileNameString = "smarts"
+        }
+        let targetCoinsParentNode;
+
+        if (target.innerHTML.includes("Flip")){
+          targetCoinsParentNode = target.parentNode.parentNode.parentNode.childNodes[1]; 
+          console.log(targetCoinsParentNode)
+        } else if (target.parentNode.id === "strengthCoins"){
+          //
+          targetCoinsParentNode = target.parentNode;
+          console.log(targetCoinsParentNode)
+        } else if (target.parentNode.id === "magicCoins"){
+          statIndex = 1;
+          targetCoinsParentNode = target.parentNode;
+        } else if (target.parentNode.id === "smartsCoins"){
+          statIndex = 2;
+          targetCoinsParentNode = target.parentNode;
+        } 
+
+        for (let i = 0; i < currentCharacterStats[statIndex]; i++){ //loop through all the coins
+          let coin = targetCoinsParentNode.childNodes[i*2+1];
+          setTimeout(function(){ //fade it out
             coin.style.opacity = "0";
           }, 50 * i);
-          let headsOrTails = Math.floor(Math.random()*2);
+          let headsOrTails = Math.floor(Math.random()*2); //flip the coin
           setTimeout(function(){
             if(headsOrTails === 0){
               coin.childNodes[0].src = "assets/images/coin-"+ fileNameString +"-heads.svg";
@@ -310,12 +434,15 @@
           } else { //remove smarts
             i = 2;
           }
-          if (currentCharacterStats[i] + currentCharacterBonuses[i] > 1){
-            currentCharacterBonuses[i]--;
+          if (currentCharacterStats[i] > 1){
+            currentCharacterBonuses[i]--;//keep track of this bonus
+            currentCharacterStats[i]--;//and apply it to the stats
+
             let textNode = allCoins[i].childNodes[0];
             let coinNode = allCoins[i].childNodes[1];
-            textNode.remove();
+            allCoins[i].removeChild(textNode);
             allCoins[i].removeChild(coinNode);
+
           } else {
             alert("You can't have less than one coin! Or you're dead");
           }
@@ -328,11 +455,13 @@
             i = 2;
           }
           if (currentCharacterBonuses[i] < 8){
-            currentCharacterBonuses[i]++;
+            currentCharacterBonuses[i]++;//keep track of this bonus
+            currentCharacterStats[i]++;//and apply it to the stats
+
             let textNode = allCoins[i].childNodes[0].cloneNode(true);
             let coinNode = allCoins[i].childNodes[1].cloneNode(true);
-            allCoins[i].insertBefore(coinNode, allCoins[i].childNodes[numOfChildElements[i] - 3]);
-            allCoins[i].insertBefore(textNode, allCoins[i].childNodes[numOfChildElements[i] - 3]);
+            allCoins[i].appendChild(coinNode);
+            allCoins[i].appendChild(textNode);
           } else {
             alert("You can't have a bonus that big :)");
           }
@@ -340,55 +469,31 @@
         }
       }
 
-      function resetCoins(){
-        strengthCoins = document.getElementById("strengthCoins");
-        magicCoins = document.getElementById("magicCoins");
-        smartsCoins = document.getElementById("smartsCoins");
-
-        let allCoins = [strengthCoins,magicCoins,smartsCoins];
-        let numOfChildElements = [allCoins[0].childNodes.length,allCoins[1].childNodes.length,allCoins[2].childNodes.length]
-
-        for (let i = 0; i < 3; i++){
-          if(currentCharacterBonuses[i] === 0){
-            //do nothing, yay!
-          } else if (currentCharacterBonuses[i] < 0){ //add coins back
-            for (let j = 0; j > currentCharacterBonuses[i]; j--){
-              let textNode = allCoins[i].childNodes[0].cloneNode(true);
-              let coinNode = allCoins[i].childNodes[1].cloneNode(true);
-              allCoins[i].insertBefore(coinNode, allCoins[i].childNodes[numOfChildElements[i] - 3]);
-              allCoins[i].insertBefore(textNode, allCoins[i].childNodes[numOfChildElements[i] - 3]);
-            }
-          } else { //take coins away
-            for (let j = 0; j < currentCharacterBonuses[i]; j++){
-              let textNode = allCoins[i].childNodes[0];
-              let coinNode = allCoins[i].childNodes[1];
-              textNode.remove();
-              allCoins[i].removeChild(coinNode);
-            }
-          }
-        }
-        currentCharacterBonuses = [0,0,0];
-      }
-
       strength.onmouseenter = function(){
         strengthControls.style.opacity = "1";
+        strengthControls.style.height = "37px";
       }
       strength.onmouseleave = function(){
         strengthControls.style.opacity = "0";
+        strengthControls.style.height = "0px";
       }
 
       magic.onmouseenter = function(){
         magicControls.style.opacity = "1";
+        magicControls.style.height = "37px";
       }
       magic.onmouseleave = function(){
         magicControls.style.opacity = "0";
+        magicControls.style.height = "0px";
       }
 
       smarts.onmouseenter = function(){
         smartsControls.style.opacity = "1";
+        smartsControls.style.height = "37px";
       }
       smarts.onmouseleave = function(){
         smartsControls.style.opacity = "0";
+        smartsControls.style.height = "0px";
       }
 
       creatureCard.onclick = function(){
@@ -431,44 +536,6 @@
             },250)
           }
         }
-      }
-
-      creatureSelector.onchange = function (){
-        creatureIndex = creatureSelector.value;
-        if (creatureCard.style.transform.includes("180deg")){
-          creatureCard.style.transform = "rotateY(0deg)"
-          setTimeout(function(){
-            creatureCard.src = "assets/images/Creature-" + creatureIndex+ "-front.jpg";
-            creatureCardIsFaceUp = true;
-            animationInProgress.creature = false;
-          },250);
-        } else {
-          creatureCard.src = "assets/images/Creature-" + creatureIndex+ "-front.jpg";
-        }
-
-        creatureCardIsFaceUp = true;
-        resetCoins();
-        updateCurrentCharacterStats();
-        flipAllCoins();
-      }
-
-      abilitySelector.onchange = function (){
-        abilityIndex = abilitySelector.value;
-        if (abilityCard.style.transform.includes("180deg")) {
-          abilityCard.style.transform = "rotateY(0deg)"
-          setTimeout(function(){
-            abilityCard.src = "assets/images/Ability-" + abilityIndex+"-front.jpg";
-            abilityCardIsFaceUp = true;
-            animationInProgress.ability = false;
-          },250);
-        } else {
-          abilityCard.src = "assets/images/Ability-" + abilityIndex+"-front.jpg";
-        }
-
-        abilityCardIsFaceUp = true;
-        resetCoins();
-        updateCurrentCharacterStats();
-        flipAllCoins();
       }
 
       function flipAllCoins(){
