@@ -90,10 +90,10 @@
     <div class="coinsContainer">
       <div id="strength">
         <ul class="coins" id="strengthCoins">
-          <li onclick="flipCoins(this);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
-          <li onclick="flipCoins(this);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
-          <li onclick="flipCoins(this);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
-          <li onclick="flipCoins(this);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this,0);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this,0);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this,0);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this,0);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
         </ul>
         <ul class="coin-control-panel">
           <li class="controls" id="strengthControls">
@@ -106,14 +106,14 @@
       </div>
       <div id="magic">
         <ul class="coins" id="magicCoins">
-          <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
-          <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
-          <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
-          <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
-          <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
-          <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
-          <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
-          <li onclick="flipCoins(this);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this,1);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this,1);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this,1);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this,1);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this,1);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this,1);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this,1);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this,1);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
         </ul>
         <ul class="coin-control-panel">
           <li class="controls" id="magicControls">
@@ -126,8 +126,8 @@
       </div>
       <div id="smarts">
         <ul class="coins" id="smartsCoins">
-          <li onclick="flipCoins(this);"><img src="assets/images/coin-smarts-heads.svg" alt=""></li>
-          <li onclick="flipCoins(this);"><img src="assets/images/coin-smarts-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this,2);"><img src="assets/images/coin-smarts-heads.svg" alt=""></li>
+          <li onclick="flipCoins(this,2);"><img src="assets/images/coin-smarts-heads.svg" alt=""></li>
         </ul>
         <ul class="coin-control-panel">
           <li class="controls" id="smartsControls">
@@ -376,12 +376,10 @@
         let fileNameString = "strength";
         if (statIndex === undefined){
           statIndex = 0;
-        } 
-
-        if (statIndex === 1) {
+        } else if (statIndex === 1) {
           fileNameString = "magic";
         } else if (statIndex === 2) {
-          fileNameString = "smarts"
+          fileNameString = "smarts";
         }
         let targetCoinsParentNode;
 
