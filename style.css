@@ -206,7 +206,7 @@ form.button-invert input {
   font-family: SharpSansMedium, sans-serif;
 }
 
-.story-card:hover{
+body.hasHover .story-card:hover{
   background-color: var(--green);
   color: white;
 }
@@ -311,7 +311,7 @@ select {
   transform-style: preserve-3d;
 }
 
-.playing-card:hover {
+body.hasHover .playing-card:hover {
   box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.15);
   width: 31vw;
 }
@@ -387,7 +387,7 @@ ul.coins li img{
   border-radius: 120px;
 }
 
-ul.coins li img:hover{
+body.hasHover ul.coins li img:hover{
   margin: 1px;
   width: 120px;
   box-shadow: 0px 4px 40px rgba(0, 0, 0, .15);
@@ -439,6 +439,24 @@ ul.coin-control-panel li.controls img{
     body{
       width: 100%;
     }
+
+    .controls{
+      opacity: 1;
+      height: 32px;
+    }
+    
+    .coin-control-panel {
+      margin-bottom: 30px;
+    }
+
+    .coinsContainer {
+      height: 410px;
+    }
+
+    .vertical-stack {
+      position: relative;
+    }
+
     .story-card {
       min-width: 0;
       width: 84vw;
@@ -472,11 +490,12 @@ ul.coin-control-panel li.controls img{
       padding:.25em .5em;
       padding-right: 1.5em;
     }
-    .coins{
+    ul.coins{
       flex-direction: row;
       flex-wrap: wrap;
       max-width: 100%;
       margin-bottom: 0;
+      height: auto;
     }
 
     .coin-controls{
@@ -502,6 +521,8 @@ ul.coin-control-panel li.controls img{
 
     .playing-card-container{
       flex-direction: column;
+      justify-content: flex-start;
+      height: auto;
     }
 
     #check-out{

@@ -145,6 +145,8 @@
       let creatureCardIsFaceUp = true;
       let abilityCardIsFaceUp = true;
 
+      let allow_hover_effects = true;
+
       let abilityCardStats = [
         [2,4,1], //fungus lord
         [3,3,1], //performer
@@ -468,30 +470,42 @@
       }
 
       strength.onmouseenter = function(){
-        strengthControls.style.opacity = "1";
-        strengthControls.style.height = "37px";
+        if(allow_hover_effects){
+          strengthControls.style.opacity = "1";
+          strengthControls.style.height = "37px";
+        }
       }
       strength.onmouseleave = function(){
-        strengthControls.style.opacity = "0";
-        strengthControls.style.height = "0px";
+        if(allow_hover_effects){
+          strengthControls.style.opacity = "0";
+          strengthControls.style.height = "0px";
+        }
       }
 
       magic.onmouseenter = function(){
+        if(allow_hover_effects){
         magicControls.style.opacity = "1";
         magicControls.style.height = "37px";
+        }
       }
       magic.onmouseleave = function(){
+        if(allow_hover_effects){
         magicControls.style.opacity = "0";
         magicControls.style.height = "0px";
+        }
       }
 
       smarts.onmouseenter = function(){
+        if(allow_hover_effects){
         smartsControls.style.opacity = "1";
         smartsControls.style.height = "37px";
+        }
       }
       smarts.onmouseleave = function(){
+        if(allow_hover_effects){
         smartsControls.style.opacity = "0";
         smartsControls.style.height = "0px";
+        }
       }
 
       creatureCard.onclick = function(){
@@ -549,6 +563,34 @@
           var img=new Image();
           img.src=url;
       }
+
+    function watchForHover() {
+      // fired a few milliseconds after touchstart to filter them.
+      let lastTouchTime = 0
+
+      function enableHover() {
+        if (new Date() - lastTouchTime < 500) return
+        document.body.classList.add('hasHover')
+        allow_hover_effects = true;
+      }
+
+      function disableHover() {
+        document.body.classList.remove('hasHover')
+        allow_hover_effects = false;
+      }
+
+      function updateLastTouchTime() {
+        lastTouchTime = new Date()
+      }
+
+      document.addEventListener('touchstart', updateLastTouchTime, true)
+      document.addEventListener('touchstart', disableHover, true)
+      document.addEventListener('mousemove', enableHover, true)
+
+      enableHover()
+    }
+
+    watchForHover()
 
     </script>
 
