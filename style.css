@@ -109,7 +109,7 @@ nav img {
 
 img.social {
   height: 3rem;
-  margin: 6rem 4rem 0rem 4rem;
+  margin: 6rem 4vw 0rem 4vw;
 }
 
 form {
@@ -243,8 +243,8 @@ body.hasHover .story-card:hover{
   cursor: pointer;
 }
 
-.coinsContainer {
-  height: 390px;
+#coinsContainer {
+  height: 40vw;
 }
 
 #ability{
@@ -331,7 +331,11 @@ ul.coins {
   margin-bottom:0px;
   padding: 0px;
   cursor: pointer;
-  height: 120px;
+  height: 10vw;
+  width: 75%;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  transition: height 200ms;
 }
 
 .coin-control-panel {
@@ -379,9 +383,16 @@ ul.coins {
   padding: 0px 8px;
 }
 
+ul.coins li {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 9vw;
+}
+
 ul.coins li img{
-  margin: 1px;
-  width:100px;
+  margin: 3px;
+  width:8vw;
   transition: width 200ms, box-shadow 300ms;
   box-shadow: 0px 4px 40px rgba(0, 0, 0, 0);
   border-radius: 120px;
@@ -389,7 +400,7 @@ ul.coins li img{
 
 body.hasHover ul.coins li img:hover{
   margin: 1px;
-  width: 120px;
+  width: 9vw;
   box-shadow: 0px 4px 40px rgba(0, 0, 0, .15);
 }
 
@@ -431,7 +442,7 @@ ul.coin-control-panel li.controls img{
 
 /*mobile*/
 @media only screen
-  and (max-device-width: 700px)
+  and (max-width: 775px)
   and (-webkit-min-device-pixel-ratio: 1) {
     html{
       width: 100%;
@@ -443,14 +454,15 @@ ul.coin-control-panel li.controls img{
     .controls{
       opacity: 1;
       height: 32px;
+      margin-top: 6px;
     }
     
     .coin-control-panel {
       margin-bottom: 30px;
     }
 
-    .coinsContainer {
-      height: 410px;
+    #coinsContainer {
+      height: auto;
     }
 
     .vertical-stack {
@@ -505,6 +517,10 @@ ul.coin-control-panel li.controls img{
     }
 
     ul.coin-controls li img {
+      width: 14vw;
+    }
+
+    ul.coins li {
       width: 14vw;
     }
 

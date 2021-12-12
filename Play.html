@@ -87,7 +87,7 @@
         </select>
       </div>
     </div>
-    <div class="coinsContainer">
+    <div class="coins-container" id="coinsContainer">
       <div id="strength">
         <ul class="coins" id="strengthCoins">
           <li onclick="flipCoins(this,0);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
@@ -146,6 +146,7 @@
       let abilityCardIsFaceUp = true;
 
       let allow_hover_effects = true;
+      let coin_size = 10; //15 for mobile
 
       let abilityCardStats = [
         [2,4,1], //fungus lord
@@ -187,6 +188,14 @@
       let strengthControls = document.getElementById("strengthControls");
       let magicControls = document.getElementById("magicControls");
       let smartsControls = document.getElementById("smartsControls");
+
+      let coinsContainer = document.getElementById("coinsContainer");
+      const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+      if (vw > 775){
+      coinsContainer.style.height = "40vw";
+      } else {
+          // don't set it, no hover effects so we dont' need it   
+      }
 
       let strength = document.getElementById("strength");
       let magic = document.getElementById("magic");
@@ -298,6 +307,11 @@
         currentCharacterStats[index] = abilityCardStats[abilityIndex - 1][index] + creatureCardStats[creatureIndex - 1][index];//update individual stats
 
         setTimeout(function(){
+        if (allow_hover_effects){
+          strengthCoins.style.height = "10vw";
+          magicCoins.style.height = "10vw";
+          smartsCoins.style.height = "10vw";
+        }
           let numOfChildElements = parentElement.childNodes.length;
           let numOfCoins = (numOfChildElements + 1) / 2 - 1; //count how many coins are on the page
           let delta = numOfCoins - currentCharacterStats[index]; //see what the difference is between them
@@ -336,15 +350,18 @@
             }, 50 * i + 50 * currentCharacterStats[0] + 50)
           }
         }, resetTimeoutDelay);
-
-
-
       }
 
       function matchCoinsToStats() { //count how many coins are on the page, and add or remove coins in order to match the new creature/ability/stats
         let strengthCoins = document.getElementById("strengthCoins");
         let magicCoins = document.getElementById("magicCoins");
         let smartsCoins = document.getElementById("smartsCoins");
+
+        if (allow_hover_effects){
+          strengthCoins.style.height = "10vw";
+          magicCoins.style.height = "10vw";
+          smartsCoins.style.height = "10vw";
+        }
 
         let allCoins = [strengthCoins,magicCoins,smartsCoins];
         for (let i = 0 ; i < 3; i++){ //for each stat
@@ -435,6 +452,9 @@
             i = 2;
           }
           if (currentCharacterStats[i] > 1){
+            if (currentCharacterStats[i] === 9) {
+              toggleCoinContainerHeight(i);
+            }
             currentCharacterBonuses[i]--;//keep track of this bonus
             currentCharacterStats[i]--;//and apply it to the stats
 
@@ -455,6 +475,9 @@
             i = 2;
           }
           if (currentCharacterBonuses[i] < 8){
+            if (currentCharacterStats[i] === 8) {
+              toggleCoinContainerHeight(i);
+            }
             currentCharacterBonuses[i]++;//keep track of this bonus
             currentCharacterStats[i]++;//and apply it to the stats
 
@@ -466,6 +489,39 @@
             alert("You can't have a bonus that big :)");
           }
 
+        }
+      }
+
+      function toggleCoinContainerHeight (index) {
+        if (allow_hover_effects){
+          if (currentCharacterStats[index] === 8){ //we're going up, time to increase the size of the container
+        coinsContainer.style.height = (parseInt(coinsContainer.style.height) + coin_size) + "vw";
+          switch (index){
+            case 0:
+              strengthCoins.style.height = "20vw";
+              break;
+            case 1:
+              magicCoins.style.height = "20vw";
+              break;
+            case 2:
+              smartsCoins.style.height = "20vw";
+              break;
+          }
+
+        } else if (currentCharacterStats[index] === 9) { //we're going down, time to decrease the size of the container
+           coinsContainer.style.height = (parseInt(coinsContainer.style.height) - coin_size) + "vw";
+          switch (index){
+              case 0:
+                strengthCoins.style.height = "10vw";
+                break;
+              case 1:
+                magicCoins.style.height = "10vw";
+                break;
+              case 2:
+                smartsCoins.style.height = "10vw";
+                break;
+            }
+        }
         }
       }
 
@@ -554,9 +610,9 @@
         let firstStrengthCoin = strengthCoins.childNodes[1];
         let firstMagicCoin = magicCoins.childNodes[1];
         let firstSmartsCoin = smartsCoins.childNodes[1];
-        flipCoins(firstStrengthCoin,true);
-        flipCoins(firstMagicCoin,true);
-        flipCoins(firstSmartsCoin,true);
+        flipCoins(firstStrengthCoin,0);
+        flipCoins(firstMagicCoin,1);
+        flipCoins(firstSmartsCoin,2);
       }
 
       function preloadImage(url){
@@ -572,11 +628,13 @@
         if (new Date() - lastTouchTime < 500) return
         document.body.classList.add('hasHover')
         allow_hover_effects = true;
+        coin_size = 10;
       }
 
       function disableHover() {
         document.body.classList.remove('hasHover')
         allow_hover_effects = false;
+        coin_size = 15;
       }
 
       function updateLastTouchTime() {
