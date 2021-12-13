@@ -304,6 +304,7 @@
             break;
         }
         
+        hide_head_total(index);
         for (let i = 0; i < currentCharacterStats[index]; i++){ //clear away current coins
           let coin = parentElement.childNodes[i*2+1];
           setTimeout(function(){ //fade it out
@@ -357,9 +358,21 @@
                 coin.childNodes[0].src = "assets/images/coin-"+ fileNameString +"-tails.svg";
               }
               coin.style.opacity = "1";
-            }, 50 * i + 50 * currentCharacterStats[0] + 50)
+            }, 50 * i + 50 * currentCharacterStats[index] + 50)
           }
         }, resetTimeoutDelay);
+
+        setTimeout(function(){
+          let heads_total=0;
+          for (let k = 1; k < parentElement.childNodes.length; k+=2){
+            console.log(parentElement.childNodes[k].childNodes[0].src)
+            if (parentElement.childNodes[k].childNodes[0].src.includes("heads")){
+              heads_total++;
+            }
+          }
+          show_head_total(index,heads_total)
+        }, resetTimeoutDelay + currentCharacterStats[index]*100 + 50)
+
       }
 
       function matchCoinsToStats() { //count how many coins are on the page, and add or remove coins in order to match the new creature/ability/stats
@@ -404,28 +417,21 @@
       function flipCoins(target, statIndex){ //flip all of a single stat's coins
         let fileNameString;
         let targetCoinsParentNode;
-
         switch (statIndex){
           case 0:
-            strengthHeadsTotal.style.opacity = "0";
-            strengthHeadsTotal.style.marginLeft = "0px"
             fileNameString = "strength";
             targetCoinsParentNode = strengthCoins;
             break;
           case 1:
-            magicHeadsTotal.style.opacity = "0";
-            magicHeadsTotal.style.marginLeft = "0px";
             fileNameString = "magic";
             targetCoinsParentNode = magicCoins;
             break;
           case 2:
-            smartsHeadsTotal.style.opacity = "0";
-            smartsHeadsTotal.style.marginLeft = "0px";
             fileNameString = "smarts";
             targetCoinsParentNode = smartsCoins;
             break;
-          }
-
+        }
+        hide_head_total(statIndex);
         let heads_total = 0;
         for (let i = 0; i < currentCharacterStats[statIndex]; i++){ //loop through all the coins
           let coin = targetCoinsParentNode.childNodes[i*2+1];
@@ -444,6 +450,28 @@
           }, 50 * i + 50 * currentCharacterStats[0] + 200)
         }
         setTimeout(function(){
+          show_head_total(statIndex,heads_total);
+        }, 100 * currentCharacterStats[statIndex] + 250)
+      }
+
+      function hide_head_total(statIndex){
+        switch (statIndex){
+          case 0:
+            strengthHeadsTotal.style.opacity = "0";
+            strengthHeadsTotal.style.marginLeft = "0px"
+            break;
+          case 1:
+            magicHeadsTotal.style.opacity = "0";
+            magicHeadsTotal.style.marginLeft = "0px";
+            break;
+          case 2:
+            smartsHeadsTotal.style.opacity = "0";
+            smartsHeadsTotal.style.marginLeft = "0px";
+            break;
+          }
+      }
+
+      function show_head_total(statIndex,heads_total){
         switch (statIndex){
           case 0:
             strengthHeadsTotal.innerHTML = heads_total + " heads";
@@ -461,9 +489,8 @@
             smartsHeadsTotal.style.marginLeft = "12px";
             break;
           }
-        }, 100 * currentCharacterStats[statIndex] + 250)
-        
       }
+
 
       function bonusCoins(target){
         strengthCoins = document.getElementById("strengthCoins");
@@ -688,7 +715,7 @@
         <img src="assets/images/FlipTales-Free-Sample.png" alt="rendering of FlipTales box and contents">
       </figure>
       <form class="button" action="https://shop.playfliptales.com/pages/fliptales-play-lab" method="get">
-        <input type="submit" name="sign up button" value="Sign me up!">
+        <input type="submit" name="sign up button" value="SIGN ME UP!">
       </form>
       <h1>
         <a href="https://instagram.com/playfliptales">
