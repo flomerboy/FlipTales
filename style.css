@@ -10,6 +10,21 @@
 
 :root{
   --green: #15AD4B;
+  --purple: #7E2D7A;
+  --red: #FC4535;
+  --orange: #FF910A;
+}
+
+.purple {
+  color: var(--purple);
+}
+
+.red {
+  color: var(--red);
+}
+
+.orange {
+  color: var(--orange);
 }
 
 a {
@@ -188,6 +203,15 @@ form.button-invert input {
   border-radius: 25px;
 }
 
+.coin-total {
+  margin: 0px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 18px;
+  margin-left: 12px;
+  transition: margin-left 200ms, opacity 100ms;
+}
+
 .story-card {
   border-radius: 1rem;
   border-style: solid;
@@ -245,6 +269,15 @@ body.hasHover .story-card:hover{
 
 #coinsContainer {
   height: 40vw;
+}
+
+.coins-container h3 {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 0px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 24px;
 }
 
 #ability{
@@ -368,14 +401,24 @@ ul.coins {
 }
 
 #strengthControls .coin-controls {
-  background-color: #efdcff;
+  background-color: #ffdffd;
+}
+#strengthControls .coin-controls:hover {
+  background-color: #ffbdfc;
 }
 #magicControls .coin-controls {
-  background-color: #ffdbdb;
+  background-color: #ffe1dd;
+}
+#magicControls .coin-controls:hover {
+  background-color: #ffc8c2;
 }
 #smartsControls .coin-controls {
-  background-color: #fff0d3;
+  background-color: #ffefdc;
 }
+#smartsControls .coin-controls:hover {
+  background-color: #ffe2bf;
+}
+
 
 .button-icon {
   opacity: .6;
@@ -455,8 +498,14 @@ ul.coin-control-panel li.controls img{
       opacity: 1;
       height: 32px;
       margin-top: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     
+    .coins-container h3 {
+      font-size: 18px;
+    }
+
     .coin-control-panel {
       margin-bottom: 30px;
     }

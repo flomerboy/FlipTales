@@ -89,6 +89,7 @@
     </div>
     <div class="coins-container" id="coinsContainer">
       <div id="strength">
+        <h3 class="purple">Strength</h3>
         <ul class="coins" id="strengthCoins">
           <li onclick="flipCoins(this,0);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
           <li onclick="flipCoins(this,0);"><img src="assets/images/coin-strength-heads.svg" alt=""></li>
@@ -101,10 +102,12 @@
             <img id="strength-plus" src="assets/images/strength-adjust-plus.svg" alt="">
             <button onclick="flipCoins(this,0);" class="coin-controls"><img class="button-icon" src="assets/icons/flip.svg" />Flip</button>
             <button onclick="resetCoins(0);" class="coin-controls"><img class="button-icon" src="assets/icons/reset.svg" />Reset</button>
+            <p class="coin-total purple" id="strengthHeadsTotal"> 4 heads</p>
           </li>
         </ul>
       </div>
       <div id="magic">
+        <h3 class="red">Magic</h3>
         <ul class="coins" id="magicCoins">
           <li onclick="flipCoins(this,1);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
           <li onclick="flipCoins(this,1);"><img src="assets/images/coin-magic-heads.svg" alt=""></li>
@@ -121,10 +124,12 @@
             <img id="magic-plus" src="assets/images/magic-adjust-plus.svg" alt="">
             <button onclick="flipCoins(this,1);" class="coin-controls"><img class="button-icon" src="assets/icons/flip.svg" />Flip</button>
             <button onclick="resetCoins(1);" class="coin-controls"><img class="button-icon" src="assets/icons/reset.svg" />Reset</button>
+            <p class="coin-total red" id="magicHeadsTotal"> 8 heads</p>
           </li>
         </ul>
       </div>
       <div id="smarts">
+        <h3 class="orange">Smarts</h3>
         <ul class="coins" id="smartsCoins">
           <li onclick="flipCoins(this,2);"><img src="assets/images/coin-smarts-heads.svg" alt=""></li>
           <li onclick="flipCoins(this,2);"><img src="assets/images/coin-smarts-heads.svg" alt=""></li>
@@ -135,6 +140,7 @@
             <img id="smarts-plus" src="assets/images/smarts-adjust-plus.svg" alt="">
             <button onclick="flipCoins(this,2);" class="coin-controls"><img class="button-icon" src="assets/icons/flip.svg" />Flip</button>
             <button onclick="resetCoins(2);" class="coin-controls"><img class="button-icon" src="assets/icons/reset.svg" />Reset</button>
+            <p class="coin-total orange" id="smartsHeadsTotal"> 2 heads</p>
           </li>
         </ul>
       </div>
@@ -177,6 +183,10 @@
       let strengthCoins = document.getElementById("strengthCoins");
       let magicCoins = document.getElementById("magicCoins");
       let smartsCoins = document.getElementById("smartsCoins");
+
+      let strengthHeadsTotal = document.getElementById("strengthHeadsTotal");
+      let magicHeadsTotal = document.getElementById("magicHeadsTotal");
+      let smartsHeadsTotal = document.getElementById("smartsHeadsTotal");
 
       let strengthPlus = document.getElementById("strength-plus");
       let strengthMinus = document.getElementById("strength-minus");
@@ -392,31 +402,31 @@
       }
 
       function flipCoins(target, statIndex){ //flip all of a single stat's coins
-        let fileNameString = "strength";
-        if (statIndex === undefined){
-          statIndex = 0;
-        } else if (statIndex === 1) {
-          fileNameString = "magic";
-        } else if (statIndex === 2) {
-          fileNameString = "smarts";
-        }
+        let fileNameString;
         let targetCoinsParentNode;
 
-        if (target.innerHTML.includes("Flip")){
-          targetCoinsParentNode = target.parentNode.parentNode.parentNode.childNodes[1]; 
-          console.log(targetCoinsParentNode)
-        } else if (target.parentNode.id === "strengthCoins"){
-          //
-          targetCoinsParentNode = target.parentNode;
-          console.log(targetCoinsParentNode)
-        } else if (target.parentNode.id === "magicCoins"){
-          statIndex = 1;
-          targetCoinsParentNode = target.parentNode;
-        } else if (target.parentNode.id === "smartsCoins"){
-          statIndex = 2;
-          targetCoinsParentNode = target.parentNode;
-        } 
+        switch (statIndex){
+          case 0:
+            strengthHeadsTotal.style.opacity = "0";
+            strengthHeadsTotal.style.marginLeft = "0px"
+            fileNameString = "strength";
+            targetCoinsParentNode = strengthCoins;
+            break;
+          case 1:
+            magicHeadsTotal.style.opacity = "0";
+            magicHeadsTotal.style.marginLeft = "0px";
+            fileNameString = "magic";
+            targetCoinsParentNode = magicCoins;
+            break;
+          case 2:
+            smartsHeadsTotal.style.opacity = "0";
+            smartsHeadsTotal.style.marginLeft = "0px";
+            fileNameString = "smarts";
+            targetCoinsParentNode = smartsCoins;
+            break;
+          }
 
+        let heads_total = 0;
         for (let i = 0; i < currentCharacterStats[statIndex]; i++){ //loop through all the coins
           let coin = targetCoinsParentNode.childNodes[i*2+1];
           setTimeout(function(){ //fade it out
@@ -426,12 +436,33 @@
           setTimeout(function(){
             if(headsOrTails === 0){
               coin.childNodes[0].src = "assets/images/coin-"+ fileNameString +"-heads.svg";
+              heads_total++;
             } else {
               coin.childNodes[0].src = "assets/images/coin-"+ fileNameString +"-tails.svg";
             }
             coin.style.opacity = "1";
           }, 50 * i + 50 * currentCharacterStats[0] + 200)
         }
+        setTimeout(function(){
+        switch (statIndex){
+          case 0:
+            strengthHeadsTotal.innerHTML = heads_total + " heads";
+            strengthHeadsTotal.style.opacity = "1";
+            strengthHeadsTotal.style.marginLeft = "12px";
+            break;
+          case 1:
+            magicHeadsTotal.innerHTML = heads_total + " heads";
+            magicHeadsTotal.style.opacity = "1";
+            magicHeadsTotal.style.marginLeft = "12px";
+            break;
+          case 2:
+            smartsHeadsTotal.innerHTML = heads_total + " heads";
+            smartsHeadsTotal.style.opacity = "1";
+            smartsHeadsTotal.style.marginLeft = "12px";
+            break;
+          }
+        }, 100 * currentCharacterStats[statIndex] + 250)
+        
       }
 
       function bonusCoins(target){
