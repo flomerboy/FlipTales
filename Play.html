@@ -16,8 +16,10 @@
 
     gtag('config', 'UA-123279486-1');
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
 </head>
 <body>
+  <div id="p5-canvas"></div>
   <nav>
     <a href="https://playfliptales.com"><img src="assets/images/fliptales-green-logo.svg" alt="logo-green-nav"></a>
     <form class="button nav-item" action="https://shop.playfliptales.com/products/fliptales-first-edition" method="get">
@@ -39,7 +41,6 @@
     let menu_items = document.getElementsByClassName("nav-item");
     let menu_is_open = false;
     menu_icon.onclick = function(){
-      console.log("ho")
       if (menu_is_open) {
         for (let i = 0; i < menu_items.length; i++) {
           setTimeout(function() {
@@ -365,7 +366,6 @@
         setTimeout(function(){
           let heads_total=0;
           for (let k = 1; k < parentElement.childNodes.length; k+=2){
-            console.log(parentElement.childNodes[k].childNodes[0].src)
             if (parentElement.childNodes[k].childNodes[0].src.includes("heads")){
               heads_total++;
             }
@@ -391,7 +391,6 @@
           let numOfChildElements = allCoins[i].childNodes.length;
           let numOfCoins = (numOfChildElements + 1) / 2 - 1; //count how many coins are on the page
           let delta = numOfCoins - currentCharacterStats[i]; //see what the difference is between them
-          console.log(delta)
           if (delta === 0){
             //great! do nothing
           } else if( delta < 0) { //we need to add coins
@@ -451,7 +450,65 @@
         }
         setTimeout(function(){
           show_head_total(statIndex,heads_total);
+          if (heads_total === currentCharacterStats[statIndex] && heads_total >4) {
+            confetti_explosion(heads_total);
+          }
         }, 100 * currentCharacterStats[statIndex] + 250)
+      }
+
+      function setup() {
+        let cnv = createCanvas(window.innerWidth, window.innerHeight);
+        cnv.parent("p5-canvas");
+        noStroke();
+        fill("#15ad4b");
+      }
+
+      function draw() {
+        background(255);
+        let num_confetti_deleted = 0;
+        for (let i = 0; i < confetti.length; i++){
+          confetti[i - num_confetti_deleted].display();
+          confetti[i - num_confetti_deleted].move();
+          if (confetti[i].y > height) {
+            num_confetti_deleted++;
+            confetti.splice(i,1);
+          }
+        }
+      }
+
+      class Confetti {
+        constructor() {
+          this.x = round(random(0, 1)) * width;
+          this.y = (random(0,height) + random(0,height)) / 2;
+          this.dx = random(20,50);
+          if (this.x > 0) {
+            this.dx = this.dx * -1;
+          }
+          this.dy = random(-50,0);
+          this.num_sides = round(random(3,5));
+          this.color = round(random(0,3));
+        }
+        move(){
+          this.x += this.dx;
+          this.y += this.dy;
+          this.dx *= .97  ;
+          this.dy = (this.dy + this.dy + 5) / 3;
+        }
+        display() {
+          push();
+          translate(this.x, this.y);
+          rect(0, 0, 10);
+          pop();
+        }
+      }
+      let confetti = [];
+
+      function confetti_explosion(heads_total){ 
+        for (let i = 0; i < heads_total * 100; i++){
+          setTimeout(function(){
+            confetti.push(new Confetti());
+          }, random(0,heads_total*100))
+        }
       }
 
       function hide_head_total(statIndex){
